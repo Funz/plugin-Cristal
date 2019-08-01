@@ -1,0 +1,55 @@
+information=Cristal (French criticality package) plugin made by IRSN/Yann Richet\nLesser General Public License
+
+variableStartSymbol=$
+variableLimit=(...)
+formulaStartSymbol=@
+formulaLimit={...}
+commentLineChar=*
+
+roundOff=10
+
+datasetFilter=contains("(.*)","DEBUT_MORET") && contains("(.*)","DEBUT_APOLLO") && contains("(.*)","'NGROUP_FINAL' = 281")
+
+keywords.BLUE=SEAL APO1 APO2 ANIS ISOT DIRA COVE LUXT QUAD AP1P AP2P PEC SIGF MICR SIGA PROP VERI MACR AP2H APOL CHIM FINC GEOM MODU FINM FING SOUR FINS SIMU FSIM SORT POST FPOS FSOR GRAP PEIN FGRA FIND NAPP RSPH RCYL RBOI RPLA RHEX SRES NRES  EXCE PREC
+keywords.GREEN=REMP VARO CREF DREF DISK SPHE BOIT OBLI CYLX CYLY CYLZ CYLQ CONX CONY CONZ PPLA PLAX PLAY PLAZ HEXX HEXY HEXZ ECRA REUN INTE ETSU DLIM MSEC GLOB CARA COUP KEFF TAUX STAR PAS NOBI BILA NOCO NORE SREF SVOL COUL PROJ ZOOM NATU STRA MKIJ IMPO SUPH PERT FINP RESE KINI MATR DEBU SKIP COMB IMPR FCOM MAI
+keywords.RED=TYPE VOLU CONC ALEA KINF KSUP POIN FPOI VOLM FVOL SUNI UNIF SIGM MINI
+
+outputlist=mean_keff sigma_keff dkeff_pertu sigma_dkeff_pertu cU cPU M2 B2 KINF
+# pertu tmp
+outputfunctions=GaussianDensity:mean_keff,sigma_keff Numeric:mean_keff+3*sigma_keff Numeric:mean_keff Numeric:sigma_keff
+
+output.mean_keff.if=true
+output.mean_keff.get=grep("(.*).listing","FAIBLE SIGMA") >> get(1) >> cut("SIGMA",2) >>  substring("ZZZ","+/-") >> asNumeric()
+output.mean_keff.default=1.0
+
+output.sigma_keff.if=true
+output.sigma_keff.get=grep("(.*).listing","FAIBLE SIGMA") >> get(1) >> cut("SIGMA",2) >> substring("+/-",":") >> substring(3) >> asNumeric()
+output.sigma_keff.default=0.001
+
+output.dkeff_pertu.if=contains("(.*)","PERTU")
+output.dkeff_pertu.get=grep("(.*).listing","FAIBLE SIGMA") >> get(2) >> cut("SIGMA",2) >>  substring("ZZZ","+/-") >> asNumeric()
+output.dkeff_pertu.default=0.01
+
+output.sigma_dkeff_pertu.if=contains("(.*)","PERTU")
+output.sigma_dkeff_pertu.get=grep("(.*).listing","FAIBLE SIGMA") >> get(2) >> cut("SIGMA",2) >> substring("+/-","##") >> substring(3) >> asNumeric()
+output.sigma_dkeff_pertu.default=0.00001
+
+output.cU.if=true
+output.cU.get=grep("(.*)resume","C\\(U\\)=") >> between("C(U)=","_") >> asNumeric1DArray()
+output.cU.default=runif(10,0,100)
+
+output.cPU.if=true
+output.cPU.get=grep("(.*)resume","C\\(PU\\)=") >> between("C(PU)=","_") >> asNumeric1DArray()
+output.cPU.default=runif(10,0,100)
+
+output.M2.if=true
+output.M2.get=grep("(.*)resume"," M2 (\\s+)(\\d)") >> between("M2","cm2")  >> asNumeric1DArray()
+output.M2.default=runif(10,0,20)
+
+output.B2.if=true
+output.B2.get=grep("(.*)resume"," B2 (\\s+)(\\d)") >> between("B2","|")  >> asNumeric1DArray()
+output.B2.default=runif(10,0,0.01)
+
+output.KINF.if=true
+output.KINF.get=grep("(.*)resume"," KINF  ") >> between("KINF","|")  >> asNumeric1DArray()
+output.KINF.default=runif(10,0,2)

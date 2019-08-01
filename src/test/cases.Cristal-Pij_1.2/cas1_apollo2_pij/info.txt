@@ -1,0 +1,15 @@
+#Wed Jul 31 17:38:24 CEST 2019
+output.M2=39.983444214
+state=running
+output.slowing_down=0.548273325
+start=17\:38\:20
+code=Cristal-Pij_1.2
+info=Results parsed\: {B2\=0.008953664, kinf\=1.358001709, M2\=39.983444214, slowing_down\=0.548273325, keff\=1.000002503}
+output={B2\=0.008953664,kinf\=1.358001709,M2\=39.983444214,slowing_down\=0.548273325,keff\=1.000002503}
+output.keff=1.000002503
+input.No\ name=No value
+output.kinf=1.358001709
+duration=0
+end=
+calc=localhost\:35767
+output.B2=0.008953664

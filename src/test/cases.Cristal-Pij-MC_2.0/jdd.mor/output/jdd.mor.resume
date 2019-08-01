@@ -1,0 +1,58 @@
+101.AOU.2019                            WATER                             PAGE   1
+   
+                                     ---------
+                                     | WATER |
+                                     |-------|
+   
+                      ---------------------------------------
+                      | Nitrate X:Pu C(X)=50  H/X=486.23003 |
+                      |-------------------------------------|
+   
+                                 ----------------
+                                 | PU=239.47086 |
+                                 |--------------|
+   
+                      Resultats du calcul PIJ a B2 critique :  
+                     ----------------------------------------- 
+   
+                     _________________________________________  
+                     |                                       |  
+                     |  BILAN:       FLUX DIRECT             |  
+                     |_______________________________________|  
+                     |                                       |  
+                     |  OBJETS:                              |  
+                     |  GEOMETRIE :  TSTR.Nitrate.GEO        |  
+                     |  MACROLIB  :  TSTR.Nitrate.MAC        |  
+                     |  CALINIT   :  TSTR.Nitrate.CALIN      |  
+                     |  PIJ       :  TSTR.Nitrate.PIJ        |  
+                     |  CALCUL    :  TSTR.Nitrate.FLX        |  
+                     |_______________________________________|  
+                     |    146 RAPIDES ET   135 THERMIQUES    |  
+                     |  NIV =   1 Nb Region(s) =        1    |  
+                     |     NG =   281    (     1 -   281)    |  
+                     |_______________________________________|  
+                     |                                       |  
+                     | ITEX                  2               |  
+                     |                                       |  
+                     | KEFF                  0.999999642     |  
+                     | KINF                  1.396088719     |  
+                     |                                       |  
+                     | M2                   29.896995544 cm2 |  
+                     | B2                    0.013248461     |  
+                     |                                       |  
+                     | RALENTISSEMENT        0.708714426     |  
+                     |                                       |  
+                     | TAUX D'ABSORPTION     0.512517750 s-1 |  
+                     | TAUX DE FISSION       0.248607516 s-1 |  
+                     | TAUX DE PRODUCTION    0.715512574 s-1 |  
+                     | TAUX DE NEXCES        0.000005461 s-1 |  
+                     | FUITES DB2 (S)        0.203001171 s-1 |  
+                     | Erreur du bilan      -0.000000894     |  
+                     | VALEUR PROPRE         0.999999583     |  
+                     |_______________________________________|  
+   
+                         --------------------------------
+                         | M2            = 29.89700 cm2 |
+                         | L2            =  2.13406 cm2 |
+                         | Age de Fermi  = 27.76293 cm2 |
+                         |------------------------------|

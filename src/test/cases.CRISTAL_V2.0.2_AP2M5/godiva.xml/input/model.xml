@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<prj nm="godiva" id="00tbd2fcHOW" mid="7">
+<tv nm="cdate" v="Thu Aug 01 11:57:14 CEST 2019"/>
+<tv nm="getJDD" v="false"/>
+<tv nm="latec.version.major" v="1"/>
+<tv nm="latec.version.minor" v="4"/>
+<tv nm="latec.version.revision" v="0"/>
+<tv nm="fake" v="true"/>
+<std nm="Study" id="00tbd2fcHOd" mid="0">
+<inst nm="Installation" id="00tbd2fcHOe" mid="2">
+<tv nm="user.tripoli.batch" v="1000"/>
+<tv nm="user.tripoli.size" v="300"/>
+<cs nm="Calculation sheet" id="00tbd9wm33W" mid="2">
+<inst nm="Installation" id="00tbd9wm5Vm" mid="5" oid="00tbd2fcHOe" omid="2">
+<tv nm="user.tripoli.batch" v="1000"/>
+<tv nm="user.tripoli.size" v="300"/>
+<mats nm="Materials" id="00tbd9wm5Vn" mid="1" oid="00tbd2ffKGG" omid="0">
+<mat nm="Umetal" id="00tbd9wm5Vo" mid="18" oid="00tbd3YX720" omid="18" type="-1" lid="1" pvol="0.0" mxt="1">
+<tv nm="NOM_MIL" v="FISSIL"/>
+<tv nm="ap2.pij.Metal" v="true"/>
+<tv nm="ap2.pij.autop" v="true"/>
+<tv nm="cb.metal" v="true"/>
+<tv nm="ap2.pij.lawname" v="Umetal"/>
+<tv nm="ap2.pij.autopzral" v="true"/>
+<tv nm="ap2.pij.noautop" v="false"/>
+<tv nm="densCheckBox" v="false"/>
+<mvc type="0" v="18.742" expr="18.742"></mvc>
+<mvp type="0" v="0" expr="0"></mvp>
+<temp type="0" v="21" expr="21"></temp>
+<vps fg="16777215" bg="12550080" al="1.0" pt="CONTOUR" />
+<frac type="0" v="0" expr="0"></frac>
+<celem nm="U" id="00tbd9wm5Vp" mid="6" oid="00tbd3YX9UG" omid="6" mt="0" cform="0" mut="Y" mnd="N" nat="N">
+<frac type="0" v="1" expr="1.0"></frac>
+<iso nm="U233" id="00tbd9wm5Vq" mid="0" oid="00tbd3YX9UI" omid="0" key="922330" link="0" mut="Y" mnd="N">
+<frac type="0" v="0" expr="0"></frac>
+</iso>
+<iso nm="U234" id="00tbd9wm5Vr" mid="2" oid="00tbd3YX9UJ" omid="2" key="922340" link="0" mut="Y" mnd="N">
+<frac type="0" v="1.02" expr="1.02"></frac>
+</iso>
+<iso nm="U235" id="00tbd9wm5Vs" mid="2" oid="00tbd3YX9UH" omid="2" key="922350" link="0" mut="Y" mnd="N">
+<frac type="0" v="93.71" expr="93.71"></frac>
+</iso>
+<iso nm="U236" id="00tbd9wm5Vt" mid="0" oid="00tbd3YX9UK" omid="0" key="922360" link="0" mut="Y" mnd="N">
+<frac type="0" v="0" expr="0"></frac>
+</iso>
+<iso nm="U238" id="00tbd9wm5Vu" mid="2" oid="00tbd3YX9UL" omid="2" key="922380" link="0" mut="Y" mnd="N">
+<frac type="0" v="5.27" expr="5.27"></frac>
+</iso>
+</celem>
+<mod nm="moderation" id="00tbd9wm5Vv" mid="0" oid="00tbd3YX9UM" omid="0" type="0">
+<val type="0" v="0" expr="0"></val>
+<denumerator nm="U" id="00tbd9wm5Vw" mid="0" oid="00tbd3YXBwX" omid="0" rform="0">
+<cel id="00tbd9wm5Vp"/>
+</denumerator>
+<mod nm="moderation" id="00tbd9wm5Vx" mid="1" oid="00tbd3YX9UN" omid="1" mt="0">
+<vol type="0" v="0" expr="0"></vol>
+<frac type="0" v="0" expr="0"></frac>
+<dens type="0" v="0.99799" expr="0.99799"></dens>
+<ing nm="H2O" id="00tbd9wm5Vy" mid="0" oid="00tbd3YX9UO" omid="0" mt="2" state="1" wratio="0.0" mass="0.0" den="0.9979916572499999" densid="1" mut="Y" mnd="N" nat="N">
+<frac type="0" v="100" expr="100.0"></frac>
+<elem nm="H" id="00tbd9wm5Vz" mid="0" oid="00tbd3YX9UP" omid="0" mt="1" cform="0" mut="N" mnd="N" nat="N">
+<frac type="0" v="2" expr="2.0"></frac>
+<iso nm="H1" id="00tbd9wm5V-" mid="0" oid="00tbd3YX9UQ" omid="0" key="10010" link="1" mut="N" mnd="N">
+<frac type="0" v="99.9885" expr="99.9885"></frac>
+</iso>
+<iso nm="H2" id="00tbd9wm5V+" mid="0" oid="00tbd3YX9UR" omid="0" key="10020" link="1" mut="N" mnd="N">
+<frac type="0" v="0.0115" expr="0.0115"></frac>
+</iso>
+</elem>
+<elem nm="O" id="00tbd9wm5W0" mid="0" oid="00tbd3YX9US" omid="0" mt="1" cform="0" mut="N" mnd="N" nat="N">
+<frac type="0" v="1" expr="1.0"></frac>
+<iso nm="O16" id="00tbd9wm5W1" mid="0" oid="00tbd3YX9UT" omid="0" key="80160" link="0" mut="N" mnd="N">
+<frac type="0" v="99.757" expr="99.757"></frac>
+</iso>
+<iso nm="O17" id="00tbd9wm5W2" mid="0" oid="00tbd3YX9UU" omid="0" key="80170" link="0" mut="N" mnd="N">
+<frac type="0" v="0.038" expr="0.038"></frac>
+</iso>
+<iso nm="O18" id="00tbd9wm5W3" mid="0" oid="00tbd3YXBwW" omid="0" key="80180" link="0" mut="N" mnd="N">
+<frac type="0" v="0.205" expr="0.205"></frac>
+</iso>
+</elem>
+</ing>
+<elem id="00tbd9wm5Vz"/>
+</mod>
+<modref type="0" v="00tbd9wm5Vx" expr=""></modref>
+</mod>
+<acid nm="HNO3" id="00tbd9wm7y0" mid="0" oid="00tbd4GZjam" omid="0" acid="0">
+<acty type="0" v="0" expr="0"></acty>
+</acid>
+</mat>
+</mats>
+<g3d nm="Geometry 3D" id="00tbd9wm7y1" mid="1" oid="00tbd9evPB0" omid="0">
+<mod nm="Module" id="00tbd9wm7y4" mid="1" oid="00tbd9evPB3" omid="0" rootmod="Y">
+<vol nm="Ext0" id="00tbd9wm7y5" mid="4" oid="00tbd9jezD0" omid="4">
+<centerX type="0" v="0" expr="0"></centerX>
+<centerY type="0" v="0" expr="0"></centerY>
+<centerZ type="0" v="0" expr="0"></centerZ>
+<sph nm="" id="00tbd9wm7y6" mid="1" oid="00tbd9jezD1" omid="1">
+<r type="0" v="8.741" expr="8.741"></r>
+</sph>
+<med type="0" v="00tbd9wm5Vo" expr=""></med>
+</vol>
+</mod>
+<nsrc nm="source0" id="00tbd9wm7y7" mid="0" oid="00tbd9qT6Um" omid="0" st="0">
+<nbs type="0" v="1000" expr="1000.0"></nbs>
+<pos><x type="0" v="0" expr="0"></x>
+<y type="0" v="0" expr="0"></y>
+<z type="0" v="0" expr="0"></z>
+</pos><volume id="00tbd9wm7y5"/>
+<module id="00tbd9wm7y4"/>
+</nsrc>
+<moropt nm="" id="00tbd9wm7y8" mid="0" oid="00tbd9evPB1" omid="0">
+<sigma type="0" v="0.001" expr="0.001"></sigma>
+<alea type="0" v="0" expr="0"></alea>
+<xcut type="0" v="0" expr="0"></xcut>
+<ycut type="0" v="0" expr="0"></ycut>
+<zcut type="0" v="0" expr="0"></zcut>
+</moropt>
+<tripopt nm="" id="00tbd9wm7y9" mid="0" oid="00tbd9evPB2" omid="0">
+<batch type="0" v="1000" expr="1000"></batch>
+<size type="0" v="300" expr="300"></size>
+</tripopt>
+</g3d>
+<variables nm="Variables" id="00tbd9wm7yA" mid="0" oid="00tbd2fcHOf" omid="0">
+</variables>
+</inst>
+<trg id="00tbd9wm7y1"/>
+</cs>
+</inst>
+</std>
+</prj>

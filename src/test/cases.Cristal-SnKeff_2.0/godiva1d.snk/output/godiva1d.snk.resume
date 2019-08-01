@@ -1,0 +1,92 @@
+101.AOU.2019                          Sn KEFF 1D                          PAGE   1
+   
+                         --------------------------------
+                         | Umetal X:U C(X)=18742  H/X=0 |
+                         |------------------------------|
+   
+                                  ---------------
+                                  | U=235.19021 |
+                                  |-------------|
+   
+                      Resultats du calcul PIJ a B2 critique :  
+                     ----------------------------------------- 
+   
+                     _________________________________________  
+                     |                                       |  
+                     |  BILAN:       FLUX DIRECT             |  
+                     |_______________________________________|  
+                     |                                       |  
+                     |  OBJETS:                              |  
+                     |  GEOMETRIE :  TSTR.REFLEC0.GEO        |  
+                     |  MACROLIB  :  TSTR.REFLEC0.MAC        |  
+                     |  CALINIT   :  TSTR.REFLEC0.CALIN      |  
+                     |  PIJ       :  TSTR.REFLEC0.PIJ        |  
+                     |  CALCUL    :  TSTR.REFLEC0.FLX        |  
+                     |_______________________________________|  
+                     |    178 RAPIDES ET   103 THERMIQUES    |  
+                     |  NIV =   1 Nb Region(s) =        1    |  
+                     |     NG =   281    (     1 -   281)    |  
+                     |_______________________________________|  
+                     |                                       |  
+                     | ITEX                  2               |  
+                     |                                       |  
+                     | KEFF                  1.000001669     |  
+                     | KINF                  2.317920446     |  
+                     |                                       |  
+                     | M2                   16.559642792 cm2 |  
+                     | B2                    0.079586059     |  
+                     |                                       |  
+                     | RALENTISSEMENT        0.000026735     |  
+                     |                                       |  
+                     | TAUX D'ABSORPTION     0.192311391 s-1 |  
+                     | TAUX DE FISSION       0.171445325 s-1 |  
+                     | TAUX DE PRODUCTION    0.443463624 s-1 |  
+                     | TAUX DE NEXCES        0.000991796 s-1 |  
+                     | FUITES DB2 (S)        0.252143264 s-1 |  
+                     | Erreur du bilan       0.000000119     |  
+                     | VALEUR PROPRE         1.000002861     |  
+                     |_______________________________________|  
+   
+                         --------------------------------
+                         | M2            = 16.55964 cm2 |
+                         | L2            =  0.00209 cm2 |
+                         | Age de Fermi  = 16.55755 cm2 |
+                         |------------------------------|
+   
+                             Resultats du calcul Sn :  
+                            -------------------------- 
+   
+                     _________________________________________  
+                     |                                       |  
+                     |  BILAN:       FLUX DIRECT             |  
+                     |_______________________________________|  
+                     |                                       |  
+                     |  OBJETS:                              |  
+                     |  GEOMETRIE :  TSTR.GEO_SN             |  
+                     |  MACROLIB  :  TSTR.MAC_SN             |  
+                     |  CALINIT   :  TSTR.CALIN_SN           |  
+                     |  COEFFSN   :  TSTR.COEF_SN            |  
+                     |  CALCUL    :  TSTR.FLX_SN_N           |  
+                     |_______________________________________|  
+                     |     11 RAPIDES ET     9 THERMIQUES    |  
+                     |  NIV =   1 Nb Region(s) =        9    |  
+                     |     NG =    20    (     1 -    20)    |  
+                     |_______________________________________|  
+                     |                                       |  
+                     | ITEX                  9               |  
+                     |                                       |  
+                     | KEFF                  0.996843517     |  
+                     | KINF                  2.331811666     |  
+                     |                                       |  
+                     | RALENTISSEMENT        0.000027747     |  
+                     |                                       |  
+                     | TAUX D'ABSORPTION     0.429887891 s-1 |  
+                     | TAUX DE FISSION       0.384513825 s-1 |  
+                     | TAUX DE PRODUCTION    0.996843696 s-1 |  
+                     | TAUX DE NEXCES        0.002390396 s-1 |  
+                     | FUITES SPATIALES      0.572496831 s-1 |  
+                     | Erreur du bilan       0.000005841     |  
+                     |                                       |  
+                     | NORMALISATION         0.000001728     |  
+                     | VALEUR PROPRE         0.996849656     |  
+                     |_______________________________________|  

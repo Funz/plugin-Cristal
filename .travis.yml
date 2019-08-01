@@ -1,0 +1,50 @@
+language: java
+matrix:
+  include:
+    - name: "Linux JDK8"
+      os: linux
+      dist: trusty
+      jdk:
+        - openjdk8
+      env:
+        - TRAVIS_DIST_NAME="trusty"
+    - name: "MacOS JDK8"
+      os: osx
+      osx_image: xcode9.3
+#    - name: "Windows" --- Not yet supported
+#      os: windows
+#      jdk:
+#        - openjdk8
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -f '/usr/local/include/c++'; brew install ant; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install ant -y; fi
+
+install:
+  - WD=$PWD
+  - cd ..
+  - git clone https://github.com/Funz/funz-profile
+  - cd $WD
+
+script: 
+  - ant test
+
+before_deploy:
+  - ant clean dist
+  - cd dist; zip -r ../plugin-Cristal.zip *; cd ..
+  - ant install
+  - zip -r Funz-Cristal.zip Funz-Cristal
+  
+deploy:
+  provider: releases
+  api_key:
+    secure: T/X/aKtIAU9KBlgP1lJBGCUU9bmv21ixUqEfmC4TmVhjlYdzyP6YqK6tSDTW+5cA9ZqNyssX3Qe5tOwrUqjKk8MLS90AcAOV/BvpdvdEijaRH0OAV3pbK3KaBq1ceA+Qo7M1cuq6GF/oE4G4Nn/jjPOAmYNu9bbkBNwAwy8M9ocuZvEuPSfAjs8CazfQd3g2Dr6D68m20fHqQinGzB3vsVJvhLzV2TNDLOa+FGIJ1ISI8Np8l9Vw0C3pntrB9cxEKFjeHa0M06thRSx1HT7tKXlOMY6c5O5xJBuRS0MPHFvYt+RC4qdEY/l1MMgWiUEw9nznRyV1gv8mXKKBefXqFJ23VCrnZ1lAyMIwkSs9taI4mWyoQI9SaIirxEgx4azSgy1AOjxM3VPVhRIHn45JMFFFkjnst/bMLtTSYIDyFAQu4n27Jz9Ewv8hNRoVPiYF3mLXqGe/UFwv7epwGvMHvIKNKgcm6kzE3iw7K/LTTvtdG+4ezOY74Rv2Ecb8hq+N+PzWGgqIQzYoHwC/up/NY1Jd5zFtEyPiYUZOKlWyVSHtn3bxWsEa5sWNrAySWqAeg2PxjPxs3f711hNy6KAXgWgVh0gQ56a+xKBaHN0Jnkr+4fZ9nPI4AxjBP6CyBbj5LiEYpH4FVAIQ0fU6GrTChSw8BdzDRj2H5uatKPC0eIE=
+  file_glob: true
+  file:
+    - Funz-*.zip
+    - plugin-*.zip
+  on:
+    tags: true
+    branch: master
+  skip_cleanup: true
+  overwrite: true

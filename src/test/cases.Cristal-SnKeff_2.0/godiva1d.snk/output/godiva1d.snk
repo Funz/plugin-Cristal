@@ -1,0 +1,163 @@
+DEBUT_APOLLO2
+*=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+*     LATEC version 1.4.0 (2018.04.25.17.33) - 25.04.2018 
+*     Creation du fichier le jeudi 1 août 2019
+*=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+*            -=- INITIALISATION - CALCUL Geometry_1D-=-
+
+TOPT = TABLE:                                                        ;
+TRES = TABLE:                                                        ;
+TSTR = TABLE:                                                        ;
+TOPT.'CALCUL_CRISTAL' = 1                                            ;
+REPPROC            = OUVRIR: 22 'VARIABLE' 1024 10000
+                               'ADRESSE' 'aprocristal'               ;
+CHARGE_APROCRISTAL = LIRE: REPPROC 'APROC' 'CHARGE_APROCRISTAL'      ;
+FERMER: REPPROC                                                      ;
+EXECUTER CHARGE_APROCRISTAL                                          ;
+TRES TSTR TOPT = INITIALISER_CRISTAL 1 TSTR TOPT TRES                ;
+*            -=- OPTIONS -=-                                          
+*         
+TOPT.'STCRI'.'NGROUP_FINAL' = 20 ;
+TOPT.'STCRI'.'ANISOTROPIE' = 'P3' ;
+*
+*==============================================================
+* APOLLO SN KEFF CALCUL 1
+*==============================================================
+* Umetal
+TITRE: 'Sn KEFF 1D' ;
+CALCUL_AP2 =  1 ;
+*
+*            -=- Description des milieux -=-
+
+* 
+* 
+* Umetal
+nom_calc = 'REFLEC0' ;
+TOPT.'STCRI'.'CALCUL_INITIAL' = nom_calc                             ;
+TOPT.'STCRI'.'CALCULS_INITIAUX'.nom_calc = TABLE:                    ;
+TSTR.nom_calc = TABLE:                                               ;
+
+*Umetal
+nom_mil = 'FISSIL REFLEC0 ' ;
+TOPT.'STMIL'.nom_mil = TABLE: ;
+TOPT.'STMIL'.nom_mil.'U238    ' = 2.49865E-03 ;
+TOPT.'STMIL'.nom_mil.'U235    ' = 4.49988E-02 ;
+TOPT.'STMIL'.nom_mil.'U234    ' = 4.91895E-04 ;
+TOPT.'STMIL'.nom_mil.'TEMPERATURE' = 21.0 ;
+WRITE: TOPT.'RESU' 'Umetal X:U C(X)=18742  H/X=0 ' ;
+WRITE: TOPT.'RESU' 'U=235.19021 ' ;
+*
+
+TOPT.'STCRI'.'type_mil' = 'FISSIL';
+
+TOPT.'tauto' = TABLE: ;
+
+TOPT.'tauto' = INITABLE:
+
+'U238' 'PU240' 'U235' 'PU239' 'PU241'
+
+'PU242' 'U236' 'PU238' 'U233' 'U234'
+
+'NP237' 'AM241' 'AM243' 'TH232' 'ER166'
+
+'ER167' 'EU151' 'EU153' 'GD154' 'GD156'
+
+'GD155' 'GD157' 'GD158' 'GD160' 'SM147'
+
+'SM149' 'SM152' 'AG107' 'AG109' 'IN115'
+
+'CD110' 'CD113'
+
+'ZR90' 'ZR91' 'ZR92' 'ZR94' 'ZR96'
+
+'HF174' 'HF176' 'HF177' 'HF178'
+
+'HF179' 'HF180' 'CM243' 'TC99' 'CS133'
+
+'MO95' 'RH103' 'ND145' 'DY160' 'DY161'
+
+'DY162' 'DY163' 'DY164'
+
+'AL27'
+
+'SM150' 'SM151' 'ND143' 'RU101' 'RH103';
+
+*
+TRES TSTR TOPT = GENERE_MILIEUX_S 2 TSTR TOPT TRES ;
+*
+*                         -=- Creation de la geometrie -=-
+*
+TSTR.nom_calc.'GEO' = GEOM:  &CYLI &MAIL
+ 1 &EQD 1.0
+&MILI TSTR.'MILREF'.nom_mil 1 ;
+*
+*            -=- Creation de la bibliotheque interne -=-
+*
+TSTR.'APOLIB' = BIBINT: &EDIT 1 TSTR.'IDB' TSTR.nom_calc.'GEO'
+                                &SFIN &TP
+                                ( TEXTE TOPT.'REPBIB' )              ;
+
+*
+*            -=- Autoprotection -=-
+*
+TRES TSTR TOPT = AUTOPROTECTION_CRI_S 1 TSTR TOPT TRES               ;
+
+*
+*            -=- Flux a B2 nul -=-
+*
+TOPT.'TYPE_B2' = 'NUL'                                               ;
+TRES TSTR TOPT = CALFLUX_PIJ_CRI_S 1 TSTR TOPT TRES                  ;
+*
+*            -=- Flux a B2 critique -=-
+*
+SI ( TRES.'KINF' GT .8 )                                             ;
+TOPT.'TYPE_B2' = 'CRITIQUE'                                          ;
+TRES TSTR TOPT = CALFLUX_PIJ_CRI_S 1 TSTR TOPT TRES                  ;
+FINSI                                                                ;
+*
+TOPT.'STCRI'.'CALCULS_INITIAUX'.nom_calc.'B2' = TRES.'B2'            ;
+TOPT.'STCRI'.'CALCULS_INITIAUX'.nom_calc.'KINF' = TRES.'KINF'        ;
+*
+*            -=- Condensation homogeneisation -=-
+*
+TRES TSTR TOPT = HOMOGE_COND_S  1 TSTR TOPT TRES                     ;
+*
+*            -=- CREATION DE LA MACROLIB -=-
+*                                -=- Options -=-
+TOPT.'STCRI'.'B2'  = 0.                                              ;
+*                                -=- Calcul -=-
+TRES TSTR TOPT = MACRO_GLOBALE_S 1 TSTR TOPT TRES                    ;
+*
+*          <<<< CALCUL FINAL >>>>
+*
+
+*            -=- Geometrie -=-
+TSTR.'GEO_SN' = GEOM:  &SPHE &MAIL
+&X
+9 &EQD 8.741
+&MILI
+TSTR.'REFLEC0'.'MILEQ' 1 &A 9
+                                                                     ;
+*
+*            -=- Options -=-
+TOPT.'STCRI'.'DIM'           = 1                                     ;
+TOPT.'STCRI'.'TXT_CDL'       = '&VIDE'                               ;
+TOPT.'STCRI'.'TYPGEO'        = 'SPHERIQUE'                           ;
+TOPT.'STCRI'.'ACCELERATION'  = 'SIM'                                 ;
+TOPT.'STCRI'.'PRECI'         = 1.E-5                                 ;
+TOPT.'STCRI'.'QUADRATURE'    = 16                       ;
+TOPT.'STCRI'.'NBEXT'         = 150                                   ;
+*
+
+*            -=- Flux -=-
+TRES TSTR TOPT CALCUL_SN_S 1 TSTR TOPT TRES                        ;
+*
+
+FERMER: ( TEXTE TOPT.'REPBIB' )                                      ;
+DETRUIRE: TSTR TOPT TRES  nom_calc nom_mil                           ;
+
+*                                                                   
+EDTIME: ;                                                           
+ARRET: ;                                                            
+FIN_APOLLO2                                                         
+

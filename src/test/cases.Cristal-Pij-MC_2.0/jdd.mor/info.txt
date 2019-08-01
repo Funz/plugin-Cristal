@@ -1,0 +1,17 @@
+#Thu Aug 01 12:25:52 CEST 2019
+output.M2=[29.896995544]
+state=running
+start=12\:25\:17
+code=Cristal-Pij-MC_2.0
+info=Results parsed\: {B2\=[D@33bbf7c8, cU\=[D@12d8366c, M2\=[D@37621e1f, KINF\=[D@2b475766, sigma_keff\=0.001, cPU\=[D@472ef071, mean_keff+3*sigma_keff\=1.0044, N(mean_keff,sigma_keff)\=[Ljava.lang.Object;@168260fc, mean_keff\=1.0014}
+output={B2\=[0.013248461],cU\=[],M2\=[29.896995544],KINF\=[1.396088719],sigma_keff\=0.001,cPU\=[],mean_keff\=1.0014}
+output.KINF=[1.396088719]
+input.No\ name=No value
+duration=0
+end=
+calc=localhost\:45005
+output.cU=[]
+output.B2=[0.013248461]
+output.mean_keff=1.0014
+output.sigma_keff=0.001
+output.cPU=[]

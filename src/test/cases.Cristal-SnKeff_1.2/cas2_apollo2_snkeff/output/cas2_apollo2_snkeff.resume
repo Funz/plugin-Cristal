@@ -1,0 +1,82 @@
+131.JUL.2019                SN KEFF 1D B= 1 V=12.16 CAS 1                 PAGE   1
+   
+         -----------------------------------------------------------------
+         | SN1D nitrate Pu4 C(X)=40.000 H/X=649.309   B= 1 V=12.16 CAS 1 |
+         |---------------------------------------------------------------|
+   
+                      Resultats du calcul PIJ a B2 critique :  
+                     ----------------------------------------- 
+   
+                     _________________________________________  
+                     |                                       |  
+                     |  BILAN:       FLUX DIRECT             |  
+                     |_______________________________________|  
+                     |                                       |  
+                     |  OBJETS:                              |  
+                     |  GEOMETRIE :  TSTR.MILHOM1.GEO        |  
+                     |  MACROLIB  :  TSTR.MILHOM1.MAC        |  
+                     |  CALINIT   :  TSTR.MILHOM1.CALIN      |  
+                     |  PIJ       :  TSTR.MILHOM1.PIJ        |  
+                     |  CALCUL    :  TSTR.MILHOM1.FLX        |  
+                     |_______________________________________|  
+                     |     92 RAPIDES ET    80 THERMIQUES    |  
+                     |  NIV =   1 Nb Region(s) =        1    |  
+                     |     NG =   172    (     1 -   172)    |  
+                     |_______________________________________|  
+                     |                                       |  
+                     | ITEX                  2               |  
+                     |                                       |  
+                     | KEFF                  1.000002265     |  
+                     | KINF                  1.497557402     |  
+                     |                                       |  
+                     | M2                   29.133991241 cm2 |  
+                     | B2                    0.017078128     |  
+                     |                                       |  
+                     | RALENTISSEMENT        0.668107033     |  
+                     |                                       |  
+                     | TAUX D'ABSORPTION     0.667762458 s-1 |  
+                     | TAUX DE FISSION       0.346735984 s-1 |  
+                     | TAUX DE PRODUCTION    1.000005484 s-1 |  
+                     | TAUX DE NEXCES        0.000004763 s-1 |  
+                     | FUITES DB2 (S)        0.332246751 s-1 |  
+                     | Erreur du bilan      -0.000001227     |  
+                     | VALEUR PROPRE         1.000002265     |  
+                     |_______________________________________|  
+   
+                             Resultats du calcul Sn :  
+                            -------------------------- 
+   
+                     _________________________________________  
+                     |                                       |  
+                     |  BILAN:       FLUX DIRECT             |  
+                     |_______________________________________|  
+                     |                                       |  
+                     |  OBJETS:                              |  
+                     |  GEOMETRIE :  TSTR.GEO_SN             |  
+                     |  MACROLIB  :  TSTR.MAC_SN             |  
+                     |  CALINIT   :  TSTR.CALIN_SN           |  
+                     |  COEFFSN   :  TSTR.COEF_SN            |  
+                     |  CALCUL    :  TSTR.FLX_SN_N           |  
+                     |_______________________________________|  
+                     |     12 RAPIDES ET     8 THERMIQUES    |  
+                     |  NIV =   1 Nb Region(s) =       12    |  
+                     |     NG =    20    (     1 -    20)    |  
+                     |_______________________________________|  
+                     |                                       |  
+                     | ITEX                 10               |  
+                     |                                       |  
+                     | KEFF                  0.821569502     |  
+                     | KINF                  1.491855860     |  
+                     |                                       |  
+                     | RALENTISSEMENT        0.582330108     |  
+                     |                                       |  
+                     | TAUX D'ABSORPTION     0.550707757 s-1 |  
+                     | TAUX DE FISSION       0.284856856 s-1 |  
+                     | TAUX DE PRODUCTION    0.821569502 s-1 |  
+                     | TAUX DE NEXCES        0.000004734 s-1 |  
+                     | FUITES SPATIALES      0.449281633 s-1 |  
+                     | Erreur du bilan       0.000012606     |  
+                     |                                       |  
+                     | NORMALISATION         0.001931846     |  
+                     | VALEUR PROPRE         0.821596563     |  
+                     |_______________________________________|  

@@ -1,0 +1,123 @@
++ /produits/sec/OUTILS/Beat/Beat.sh Cristal2.0
++ trap ' [[-f PID]] && kill -SIGTERM (<PID) && rm -rf PID ; exit ; ' SIGTERM
+++ dirname /produits/sec/FORMULAIRE_CRISTAL_V2/scripts.v2.0/cristal.v2.0
++ source /produits/sec/FORMULAIRE_CRISTAL_V2/scripts.v2.0/cristal.conf
+++ ulimit -s unlimited
+++ export CRISTAL_OPTION_CROSSEC=
+++ CRISTAL_OPTION_CROSSEC=
+++ export CRISTAL_OPTION_KEEPDIR=yes
+++ CRISTAL_OPTION_KEEPDIR=yes
+++ CRISTAL_HOME=/produits/sec/FORMULAIRE_CRISTAL_V2
+++ CRISTAL_EXEC=/produits/sec/FORMULAIRE_CRISTAL_V2/scripts.v2.0/cristal_exec.v2.0
+++ SCHEMA_HOME=/produits/sec/FORMULAIRE_CRISTAL_V2
++++ uname -n
+++ export NOM_MACH=snc-23
+++ NOM_MACH=snc-23
+++ TYPE_MACH=machine-type
+++ case $(uname) in
++++ uname
+++ TYPE_MACH=LINUX
+++ export TYPE_MACH
+++ ARCH_TYPE=32
+++ uname -m
+++ grep -q -E '(x86_64|amd64|i64)'
+++ ARCH_TYPE=64
+++ export ARCH_TYPE
+++ [[ LINUX = \L\I\N\U\X ]]
+++ [[ 64 = \6\4 ]]
+++ TYPE_MACH=LINUX_I2
+++ export TYPE_MACH
+++ export APOLLO2_VER=V2.8-3.C
+++ APOLLO2_VER=V2.8-3.C
+++ export APOLLO2_PATH=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C
+++ APOLLO2_PATH=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C
+++ export APOLLO2_BINDIR=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/bin/LINUX_I2
+++ APOLLO2_BINDIR=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/bin/LINUX_I2
+++ export APOLLO2_EXE=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/bin/LINUX_I2/APOLLO2
+++ APOLLO2_EXE=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/bin/LINUX_I2/APOLLO2
+++ export AP2LIB=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data/
+++ AP2LIB=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data/
+++ export AP2LIB_P9=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data/
+++ AP2LIB_P9=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data/
+++ export CRILIB=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data/
+++ CRILIB=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data/
+++ export APOLLO2_APROC=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/aproc
+++ APOLLO2_APROC=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/aproc
+++ export APROCRISTAL=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/aproc_cristal
+++ APROCRISTAL=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/aproc_cristal
+++ export AP2TAB=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data/ap2tab.ref
+++ AP2TAB=/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data/ap2tab.ref
+++ export ESOPE_PARAM=ESOPE=200000000,LTRK=8192,NTRK=0
+++ ESOPE_PARAM=ESOPE=200000000,LTRK=8192,NTRK=0
+++ export ESOPE_TEMP=/tmp
+++ ESOPE_TEMP=/tmp
+++ export MONDE=l_endian_32
+++ MONDE=l_endian_32
+++ export PLATEFORME=LINUX_I2
+++ PLATEFORME=LINUX_I2
+++ export LD_LIBRARY_PATH=:/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/lib/LINUX_I2
+++ LD_LIBRARY_PATH=:/produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/lib/LINUX_I2
+++ FFORT=fort.
+++ [[ LINUX_I2 = \H\P ]]
+++ export FFORT
+++ export MORET_VER=5.B.1
+++ MORET_VER=5.B.1
+++ export MORET_HOME=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5
+++ MORET_HOME=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5
+++ export MORET_BINDIR=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5/bin/v5.B.1/LINUX
+++ MORET_BINDIR=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5/bin/v5.B.1/LINUX
+++ export MORET_EXE=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5/bin/v5.B.1/LINUX/moret5.B.1-64.exe
+++ MORET_EXE=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5/bin/v5.B.1/LINUX/moret5.B.1-64.exe
+++ export MORET_LIB=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5/lib/ASCII
+++ MORET_LIB=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5/lib/ASCII
+++ export MORET_XML_LIB_PATH=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5/lib/XML/5.B.1
+++ MORET_XML_LIB_PATH=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5/lib/XML/5.B.1
+++ export SHARED_XML_LIB_PATH=/produits/sec/FORMULAIRE_CRISTAL_V2/lib
+++ SHARED_XML_LIB_PATH=/produits/sec/FORMULAIRE_CRISTAL_V2/lib
+++ export MORET_LANG=FRAN
+++ MORET_LANG=FRAN
+++ export MORET_LICENCE_PATH=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5/lib/ASCII
+++ MORET_LICENCE_PATH=/produits/sec/FORMULAIRE_CRISTAL_V2/MORET5/lib/ASCII
+++ PATH=/opt/anaconda3/bin:/opt/anaconda2/bin:/opt/anaconda3/bin:/usr/local/cuda/bin:/home/richet/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/produits/sec/CODES/scripts:/home/richet/opt/root/bin:/usr/ucb
+++ export PATH
++ getopts dsk option
++ shift 0
++ [[ 1 == 0 ]]
++ [[ -f PID ]]
++ OPTIONS=' '
++ '[' '' = s ']'
++ '[' yes = k ']'
+++ date +%s
++ ts=1564655168
++ for infile in $@
++ [[ -f godiva1d.snk ]]
++ mv godiva1d.snk godiva1d.snk.1564655168
++ echo 5475
++ PID=5475
++ /produits/sec/FORMULAIRE_CRISTAL_V2/scripts.v2.0/cristal_exec.v2.0 godiva1d.snk.1564655168
++ trap 'kill -9 5475' SIGINT
++ wait
+rm: impossible de supprimer 'godiva1d.snk.1564655168.mor.00': Aucun fichier ou dossier de ce type
+rm: impossible de supprimer 'godiva1d.snk.1564655168.mor.02': Aucun fichier ou dossier de ce type
+rm: impossible de supprimer 'godiva1d.snk.1564655168.pre.00': Aucun fichier ou dossier de ce type
+rm: impossible de supprimer 'godiva1d.snk.1564655168.pre.02': Aucun fichier ou dossier de ce type
+rm: impossible de supprimer 'beats.png': Aucun fichier ou dossier de ce type
+rm: impossible de supprimer 'beats.png': Aucun fichier ou dossier de ce type
++ status=0
++ [[ 0 != 0 ]]
++ for result in *$ts*
++ for infile in $@
++ [[ godiva1d.snk.1564655168 != \g\o\d\i\v\a\1\d\.\s\n\k\.\1\5\6\4\6\5\5\1\6\8 ]]
++ break
++ for result in *$ts*
++ for infile in $@
++ [[ godiva1d.snk.1564655168.listing != \g\o\d\i\v\a\1\d\.\s\n\k\.\1\5\6\4\6\5\5\1\6\8 ]]
++ mv godiva1d.snk.1564655168.listing godiva1d.snk.listing
++ for result in *$ts*
++ for infile in $@
++ [[ godiva1d.snk.1564655168.resume != \g\o\d\i\v\a\1\d\.\s\n\k\.\1\5\6\4\6\5\5\1\6\8 ]]
++ mv godiva1d.snk.1564655168.resume godiva1d.snk.resume
++ for infile in $@
++ mv godiva1d.snk.1564655168 godiva1d.snk
++ rm PID
++ exit 0

@@ -1,0 +1,44 @@
+131.JUL.2019 Pin cell                                               CAS 1 PAGE   1
+   
+                      Resultats du calcul PIJ a B2 critique :  
+                     ----------------------------------------- 
+   
+                     _________________________________________  
+                     |                                       |  
+                     |  BILAN:       FLUX DIRECT             |  
+                     |_______________________________________|  
+                     |                                       |  
+                     |  OBJETS:                              |  
+                     |  GEOMETRIE :  TSTR.CELLUL1.GEO        |  
+                     |  MACROLIB  :  TSTR.CELLUL1.MAC        |  
+                     |  CALINIT   :  TSTR.CELLUL1.CALIN      |  
+                     |  PIJ       :  TSTR.CELLUL1.PIJ        |  
+                     |  CALCUL    :  TSTR.CELLUL1.FLX        |  
+                     |_______________________________________|  
+                     |     92 RAPIDES ET    80 THERMIQUES    |  
+                     |  NIV =   1 Nb Region(s) =       10    |  
+                     |     NG =   172    (     1 -   172)    |  
+                     |_______________________________________|  
+                     |                                       |  
+                     | ITEX                  4               |  
+                     |                                       |  
+                     | KEFF                  1.000002503     |  
+                     | KINF                  1.358001709     |  
+                     |                                       |  
+                     | M2                   39.983444214 cm2 |  
+                     | B2                    0.008953664     |  
+                     |                                       |  
+                     | RALENTISSEMENT        0.548273325     |  
+                     |                                       |  
+                     | TAUX D'ABSORPTION     0.737841189 s-1 |  
+                     | TAUX DE FISSION       0.406731784 s-1 |  
+                     | TAUX DE PRODUCTION    1.000691652 s-1 |  
+                     | TAUX DE NEXCES        0.000955764 s-1 |  
+                     | FUITES DB2 (S)        0.263804495 s-1 |  
+                     | Erreur du bilan      -0.000000773     |  
+                     | VALEUR PROPRE         1.000002503     |  
+                     |_______________________________________|  
+   
+                  -----------------------------------------------
+                  | *Water (Reflector)                    CAS 2 |
+                  |---------------------------------------------|

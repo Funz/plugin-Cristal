@@ -1,0 +1,17 @@
+#Wed Jul 31 17:38:57 CEST 2019
+output.M2=[28.809713364,27.808933258]
+output.ekeff=[1.18456,0.26226]
+state=running
+output.dimension=[10.9909,9.43223]
+start=17\:38\:45
+code=Cristal-SnNormes_1.2
+info=Results parsed\: {hx\=[D@2a22c393, B2\=[D@21516ea4, dkeff_ddimension\=[D@4f79b41c, cx\=[D@7c71027b, M2\=[D@4073783d, [cx]\=[D@7c71027b, [hx]\=[D@2a22c393, dimension\=[D@6afd0ad9, ekeff\=[D@68a68ace, [dimension]\=[D@6afd0ad9}
+output={hx\=[653.1394,255.606],B2\=[0.01723716,0.020088131],dkeff_ddimension\=[-7.57212E11,-2.64887E11],cx\=[40.0,100.0],M2\=[28.809713364,27.808933258],dimension\=[10.9909,9.43223],ekeff\=[1.18456,0.26226]}
+input.No\ name=No value
+output.cx=[40.0,100.0]
+duration=0
+end=
+calc=localhost\:45781
+output.dkeff_ddimension=[-7.57212E11,-2.64887E11]
+output.hx=[653.1394,255.606]
+output.B2=[0.01723716,0.020088131]

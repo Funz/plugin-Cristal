@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<prj nm="TP2" id="00tKkQxq1oW" mid="7">
+<tv nm="cdate" v="Tue May 07 13:11:06 CEST 2019"/>
+<tv nm="latec.version.major" v="1"/>
+<tv nm="latec.version.minor" v="4"/>
+<tv nm="latec.version.revision" v="0"/>
+<tv nm="getJDD" v="false"/>
+<tv nm="fake" v="true"/>
+<std nm="Study" id="00tKkQxq1od" mid="0">
+<inst nm="Installation" id="00tKkQxq1oe" mid="2">
+<tv nm="user.tripoli.batch" v="3000"/>
+<tv nm="user.tripoli.size" v="1000"/>
+<cs nm="Calculation sheet" id="00tKkWl3ti0" mid="2">
+<inst nm="Installation" id="00tKkWl3ti1" mid="5" oid="00tKkQxq1oe" omid="2">
+<tv nm="user.tripoli.batch" v="3000"/>
+<tv nm="user.tripoli.size" v="1000"/>
+<mats nm="Materials" id="00tKkWl3ti2" mid="2" oid="00tKkQy743G" omid="0">
+<mat nm="Nitrate" id="00tKkWl3ti3" mid="6" oid="00tKkR5pmB0" omid="6" type="-1" lid="1001" pvol="0.0" mxt="0">
+<tv nm="NOM_MIL" v="FISSIL"/>
+<tv nm="ap2.pij.autopzral" v="true"/>
+<tv nm="ap2.pij.noautop" v="false"/>
+<mvc type="0" v="0" expr="0"></mvc>
+<mvp type="0" v="0" expr="0"></mvp>
+<temp type="0" v="21" expr="21"></temp>
+<vps fg="16777215" bg="8453505" al="1.0" pt="CONTOUR" />
+<frac type="0" v="0" expr="0"></frac>
+<celem nm="PU" id="00tKkWl3ti4" mid="0" oid="00tKkR942G0" omid="0" mt="0" cform="13" mut="Y" mnd="N" nat="N">
+<frac type="0" v="1" expr="1.0"></frac>
+<iso nm="Pu236" id="00tKkWl3ti5" mid="0" oid="00tKkR96h9W" omid="0" key="942360" link="0" mut="Y" mnd="N">
+<frac type="0" v="0" expr="0"></frac>
+</iso>
+<iso nm="Pu238" id="00tKkWl3ti6" mid="0" oid="00tKkR96h9X" omid="0" key="942380" link="0" mut="Y" mnd="N">
+<frac type="0" v="0" expr="0"></frac>
+</iso>
+<iso nm="Pu239" id="00tKkWl3ti7" mid="0" oid="00tKkR96h9Y" omid="0" key="942390" link="0" mut="Y" mnd="N">
+<frac type="0" v="71" expr="71.0"></frac>
+</iso>
+<iso nm="Pu240" id="00tKkWl3ti8" mid="0" oid="00tKkR96h9Z" omid="0" key="942400" link="0" mut="Y" mnd="N">
+<frac type="0" v="17" expr="17.0"></frac>
+</iso>
+<iso nm="Pu241" id="00tKkWl3ti9" mid="0" oid="00tKkR96h9a" omid="0" key="942410" link="0" mut="Y" mnd="N">
+<frac type="0" v="11" expr="11.0"></frac>
+</iso>
+<iso nm="Pu242" id="00tKkWl3tiA" mid="0" oid="00tKkR96h9b" omid="0" key="942420" link="0" mut="Y" mnd="N">
+<frac type="0" v="1" expr="1.0"></frac>
+</iso>
+</celem>
+<pois nm="Gd_naturel" id="00tKkWl3tiB" mid="0" oid="00tKkRSZ1OG" omid="0" mvol="0.0">
+<conc type="0" v="1" expr="&#36;C_Gd"></conc>
+<elem nm="Gd_naturel" id="00tKkWl3tiC" mid="0" oid="00tKkRSZ1OI" omid="0" mt="1" cform="0" mut="N" mnd="N" nat="N">
+<frac type="0" v="1" expr="1.0"></frac>
+<iso nm="Gd152" id="00tKkWl3tiD" mid="0" oid="00tKkRSZ1OJ" omid="0" key="641520" link="0" mut="N" mnd="N">
+<frac type="0" v="0.2" expr="0.2"></frac>
+</iso>
+<iso nm="Gd154" id="00tKkWl3tiE" mid="0" oid="00tKkRSZ1OH" omid="0" key="641540" link="0" mut="N" mnd="N">
+<frac type="0" v="2.18" expr="2.18"></frac>
+</iso>
+<iso nm="Gd155" id="00tKkWl3tiF" mid="0" oid="00tKkRSZ1OK" omid="0" key="641550" link="0" mut="N" mnd="N">
+<frac type="0" v="14.8" expr="14.8"></frac>
+</iso>
+<iso nm="Gd156" id="00tKkWl3tiG" mid="0" oid="00tKkRSZ1OL" omid="0" key="641560" link="0" mut="N" mnd="N">
+<frac type="0" v="20.47" expr="20.47"></frac>
+</iso>
+<iso nm="Gd157" id="00tKkWl3tiI" mid="0" oid="00tKkRSZ1OM" omid="0" key="641570" link="0" mut="N" mnd="N">
+<frac type="0" v="15.65" expr="15.65"></frac>
+</iso>
+<iso nm="Gd158" id="00tKkWl3tiJ" mid="0" oid="00tKkRSZ1ON" omid="0" key="641580" link="0" mut="N" mnd="N">
+<frac type="0" v="24.84" expr="24.84"></frac>
+</iso>
+<iso nm="Gd160" id="00tKkWl3tiH" mid="0" oid="00tKkRSZ1OO" omid="0" key="641600" link="0" mut="N" mnd="N">
+<frac type="0" v="21.86" expr="21.86"></frac>
+</iso>
+</elem>
+</pois>
+<mod nm="H2O" id="00tKkWl3tiK" mid="2" oid="00tKkR5pmB1" omid="2" type="1">
+<val type="0" v="1" expr="&#36;CPu"></val>
+<denumerator nm="PU" id="00tKkWl3tiL" mid="0" oid="00tKkR942G1" omid="0" rform="0">
+<cel id="00tKkWl3ti4"/>
+</denumerator>
+<mod nm="H2O" id="00tKkWl3tiM" mid="1" oid="00tKkR5pmB2" omid="1" mt="0">
+<vol type="0" v="0" expr="0"></vol>
+<frac type="0" v="0" expr="0"></frac>
+<dens type="0" v="0.99799" expr="0.99799"></dens>
+<ing nm="H2O" id="00tKkWl3tiN" mid="0" oid="00tKkR5pmB3" omid="0" mt="2" state="1" wratio="0.0" mass="0.0" den="0.9979916572499999" densid="1" mut="Y" mnd="N" nat="N">
+<frac type="0" v="100" expr="100.0"></frac>
+<elem nm="H" id="00tKkWl3tiO" mid="0" oid="00tKkR5pmB4" omid="0" mt="1" cform="0" mut="N" mnd="N" nat="N">
+<frac type="0" v="2" expr="2.0"></frac>
+<iso nm="H1" id="00tKkWl3tiP" mid="0" oid="00tKkR5pmB5" omid="0" key="10010" link="1" mut="N" mnd="N">
+<frac type="0" v="99.9885" expr="99.9885"></frac>
+</iso>
+<iso nm="H2" id="00tKkWl3tiQ" mid="0" oid="00tKkR5pmB6" omid="0" key="10020" link="1" mut="N" mnd="N">
+<frac type="0" v="0.0115" expr="0.0115"></frac>
+</iso>
+</elem>
+<elem nm="O" id="00tKkWl3tiR" mid="0" oid="00tKkR5pmB7" omid="0" mt="1" cform="0" mut="N" mnd="N" nat="N">
+<frac type="0" v="1" expr="1.0"></frac>
+<iso nm="O16" id="00tKkWl3tiS" mid="0" oid="00tKkR5pmB8" omid="0" key="80160" link="0" mut="N" mnd="N">
+<frac type="0" v="99.757" expr="99.757"></frac>
+</iso>
+<iso nm="O17" id="00tKkWl3tiT" mid="0" oid="00tKkR5pmB9" omid="0" key="80170" link="0" mut="N" mnd="N">
+<frac type="0" v="0.038" expr="0.038"></frac>
+</iso>
+<iso nm="O18" id="00tKkWl3tiU" mid="0" oid="00tKkR5pmBA" omid="0" key="80180" link="0" mut="N" mnd="N">
+<frac type="0" v="0.205" expr="0.205"></frac>
+</iso>
+</elem>
+</ing>
+<elem id="00tKkWl3tiO"/>
+</mod>
+<modref type="0" v="00tKkWl3tiM" expr=""></modref>
+</mod>
+<acid nm="HNO3" id="00tKkWl3tiV" mid="1" oid="00tKkRodBp0" omid="1" acid="0">
+<acty type="0" v="3" expr="3.0"></acty>
+</acid>
+</mat>
+<struct nm="WATER" id="00tKkWl3tiW" mid="2" oid="00tKkR1LVt0" omid="2" predef="Y" conc="Y" dlid="1" dUsed="Y">
+<tv nm="NOM_MIL" v="STRUC"/>
+<tv nm="ap2.pij.noautop" v="false"/>
+<vmass type="0" v="0.997992" expr="0.997992"></vmass>
+<temp type="0" v="21" expr="21"></temp>
+<vps fg="16777215" bg="-12028161" al="1.0" pt="CONTOUR" />
+<frac type="0" v="0" expr="0"></frac>
+<ing nm="H2O" id="00tKkWl3tiX" mid="0" oid="00tKkR1M6x0" omid="0" mt="2" state="1" wratio="100.0" mass="0.0" den="0.0" densid="1" mut="Y" mnd="N" nat="N">
+<frac type="0" v="0.0333609" expr="0.0333609"></frac>
+<elem nm="H" id="00tKkWl3tiY" mid="0" oid="00tKkR1M6x1" omid="0" mt="1" cform="0" mut="N" mnd="N" nat="N">
+<frac type="0" v="2" expr="2.0"></frac>
+<iso nm="H1" id="00tKkWl3tiZ" mid="0" oid="00tKkR1M6x2" omid="0" key="10010" link="1" mut="N" mnd="N">
+<frac type="0" v="99.9885" expr="99.9885"></frac>
+</iso>
+<iso nm="H2" id="00tKkWl3tia" mid="0" oid="00tKkR1M6x3" omid="0" key="10020" link="1" mut="N" mnd="N">
+<frac type="0" v="0.0115" expr="0.0115"></frac>
+</iso>
+</elem>
+<elem nm="O" id="00tKkWl3tib" mid="0" oid="00tKkR1M6x4" omid="0" mt="1" cform="0" mut="N" mnd="N" nat="N">
+<frac type="0" v="1" expr="1.0"></frac>
+<iso nm="O16" id="00tKkWl3tic" mid="0" oid="00tKkR1M6x5" omid="0" key="80160" link="0" mut="N" mnd="N">
+<frac type="0" v="99.757" expr="99.757"></frac>
+</iso>
+<iso nm="O17" id="00tKkWl3tid" mid="0" oid="00tKkR1M6x6" omid="0" key="80170" link="0" mut="N" mnd="N">
+<frac type="0" v="0.038" expr="0.038"></frac>
+</iso>
+<iso nm="O18" id="00tKkWl3tie" mid="0" oid="00tKkR1M6x7" omid="0" key="80180" link="0" mut="N" mnd="N">
+<frac type="0" v="0.205" expr="0.205"></frac>
+</iso>
+</elem>
+</ing>
+<mic nm="" id="00tKkWl3tif" mid="0" oid="00tKkR1M6x8" omid="0" key="10010" conc="0.066714126993" link="1">
+</mic>
+<mic nm="" id="00tKkWl3tig" mid="0" oid="00tKkR1M6x9" omid="0" key="10020" conc="7.673007E-6" link="1">
+</mic>
+<mic nm="" id="00tKkWl3tii" mid="0" oid="00tKkR1M6xA" omid="0" key="80160" conc="0.033279833013" link="0">
+</mic>
+<mic nm="" id="00tKkWl3tij" mid="0" oid="00tKkR1M6xB" omid="0" key="80170" conc="1.2677142E-5" link="0">
+</mic>
+<mic nm="" id="00tKkWl3tih" mid="0" oid="00tKkR1M6xC" omid="0" key="80180" conc="6.838984499999998E-5" link="0">
+</mic>
+</struct>
+</mats>
+<g3d nm="Geometry 3D" id="00tKkWl3tik" mid="40" oid="00tKkS4T9l0" omid="39">
+<tv nm="moret.graph.x" v=""/>
+<tv nm="moret.graph.y" v=""/>
+<tv nm="moret.graph.z" v=""/>
+<tv nm="moret.graph.text" v="[ GRAPhique / PEINture { X / Y / Z } alt &#10;    [ SVOLume ]  &#10;    [ COULeur ]  &#10;    [ ZOOM ]  &#10;FGRAphique ]"/>
+<tv nm="moret.esti.combi" v=""/>
+<tv nm="moret.esti.test" v="false"/>
+<tv nm="moret.simu.natu" v="true"/>
+<tv nm="moret.simu.stra" v="false"/>
+<tv nm="moret.simu.mkij" v="false "/>
+<tv nm="moret.simu.impo" v="false "/>
+<tv nm="moret.simu.suph" v="false  "/>
+<tv nm="moret.simu.wiel" v="false  "/>
+<tv nm="moret.simu.wood" v="false  "/>
+<tv nm="moret.simu.matr" v="false"/>
+<tv nm="moret.simu.alea" v="false "/>
+<tv nm="moret.stdoutput.text" v="true false"/>
+<tv nm="moret.arret.etapes" v="100 3"/>
+<tv nm="moret.arret.neutrons" v="0 0"/>
+<tv nm="moret.arret.keff" v="0.001 -1 "/>
+<tv nm="moret.geom.blimit" v=""/>
+<tv nm="tripoli.simu.batch" v="3000"/>
+<tv nm="tripoli.simu.size" v="1000"/>
+<tv nm="tripoli.simu.energy.inf" v=""/>
+<tv nm="tripoli.simu.energy.sup" v=""/>
+<tv nm="tripoli.simu.edition" v="10"/>
+<tv nm="tripoli.simu.particule" v="PARTICULE 1 NEUTRON"/>
+<tv nm="tripoli.simu.result" v="false"/>
+<tv nm="tripoli.simu.criticity" v="true"/>
+<tv nm="tripoli.simu.discard" v="0"/>
+<tv nm="tripoli.simu.tp" v="true"/>
+<tv nm="tripoli.simu.kij" v="false"/>
+<tv nm="tripoli.output.xml" v="false"/>
+<tv nm="tripoli.output.xmlnc" v="false"/>
+<tv nm="tripoli.output.latex" v="false"/>
+<tv nm="tripoli.output.xvgr" v="false"/>
+<tv nm="tripoli.simu.other" v=""/>
+<tv nm="tripoli.output.text" v="// ** EXAMPLE OF REPONSE AND SCORE **&#10;REPONSES &#10;        1 &#10;        FLUX NEUTRON &#10;FIN_REPONSES &#10;&#10;LIST_DECOUPAGE 3 &#10;        MYDEC 4 &#10;                20. 5. 1.E-3 1.E-11 &#10;        APOLLO_172 &#10;        APOLLO_281 &#10;FIN_LIST_DECOUPAGE &#10;&#10;SCORE 1 &#10;        1 TRACK DECOUPAGE  APOLLO_281 &#10;                COMPLETE &#10;                VOLU LIST 2 &#10;                        2 3 &#10;FIN_SCORE"/>
+<tv nm="tripoli.geom.blimit" v="LIMIT &#10;  nb(conditions) &#10;    num(vol1)&lt;TYPE_CONDITION&gt;num(face1) &#10;    ... &#10;    num(voln)&lt;TYPE_CONDITION&gt;num(facen) &#10;FIN_LIMIT &#10;"/>
+<tv nm="moret.esti.impr" v="false"/>
+<mod nm="Module" id="00tKkWl3tin" mid="1" oid="00tKkS4T9l3" omid="0" rootmod="Y">
+<vol nm="Ext0" id="00tKkWl3tio" mid="17" oid="00tKkS82tuW" omid="16">
+<centerX type="0" v="0" expr="0"></centerX>
+<centerY type="0" v="0" expr="0"></centerY>
+<centerZ type="0" v="0" expr="0"></centerZ>
+<vols nm="1" id="00tKkWl3tip" mid="6" oid="00tKkT0V35G" omid="6">
+<centerX type="0" v="0" expr="0"></centerX>
+<centerY type="0" v="0" expr="0"></centerY>
+<centerZ type="0" v="0" expr="0"></centerZ>
+<cyl nm="" id="00tKkWl3tiq" mid="3" oid="00tKkT0V35I" omid="3" inf="N">
+<axis vectx="0.0" vecty="0.0" vectz="1.0"/>
+<r type="0" v="15" expr="15.0"></r>
+<h type="0" v="5658.842421045168" expr="4000./(&#36;CPu/1000.*pi*15^2)"></h>
+</cyl>
+<dlim_att nm="" id="00tKkWl3tir" mid="0" oid="00tKkT0XSv0" omid="0">
+<Xmin type="0" v="0" expr="0"></Xmin>
+<Xmax type="0" v="0" expr="0"></Xmax>
+<Ymin type="0" v="0" expr="0"></Ymin>
+<Ymax type="0" v="0" expr="0"></Ymax>
+<Zmin type="0" v="0" expr="0"></Zmin>
+<Zmax type="0" v="0" expr="0"></Zmax>
+</dlim_att>
+<med type="0" v="00tKkWl3ti3" expr=""></med>
+</vols>
+<cyl nm="" id="00tKkWl3tis" mid="15" oid="00tKkS82tuX" omid="15" inf="N">
+<axis vectx="0.0" vecty="0.0" vectz="1.0"/>
+<r type="0" v="35" expr="15+20"></r>
+<h type="0" v="5698.842421045168" expr="4000./(&#36;CPu/1000.*pi*15^2)+40"></h>
+</cyl>
+<dlim_att nm="" id="00tKkWl3tit" mid="0" oid="00tKkS8Dbwm" omid="0">
+<Xmin type="0" v="0" expr="0"></Xmin>
+<Xmax type="0" v="0" expr="0"></Xmax>
+<Ymin type="0" v="0" expr="0"></Ymin>
+<Ymax type="0" v="0" expr="0"></Ymax>
+<Zmin type="0" v="0" expr="0"></Zmin>
+<Zmax type="0" v="0" expr="0"></Zmax>
+</dlim_att>
+<med type="0" v="00tKkWl3tiW" expr=""></med>
+</vol>
+</mod>
+<nsrc nm="sourceVol1" id="00tKkWl3tiu" mid="0" oid="00tKkTGvRD0" omid="0" st="1">
+<nbs type="0" v="500" expr="500.0"></nbs>
+<volume id="00tKkWl3tip"/>
+<module id="00tKkWl3tin"/>
+</nsrc>
+<moropt nm="" id="00tKkWl3tiv" mid="0" oid="00tKkS4T9l1" omid="0">
+<sigma type="0" v="0.001" expr="0.001"></sigma>
+<alea type="0" v="NaN" expr=""></alea>
+<xcut type="0" v="NaN" expr=""></xcut>
+<ycut type="0" v="NaN" expr=""></ycut>
+<zcut type="0" v="NaN" expr=""></zcut>
+</moropt>
+<tripopt nm="" id="00tKkWl3tiw" mid="0" oid="00tKkS4T9l2" omid="0">
+<batch type="0" v="3000" expr="3000"></batch>
+<size type="0" v="1000" expr="1000"></size>
+</tripopt>
+</g3d>
+<variables nm="Variables" id="00tKkWl3tix" mid="6" oid="00tKkQxq1of" omid="6">
+<v name="CPu" min="-Infinity" max="Infinity">
+<expr>50.0</expr>
+</v>
+<v name="C_Gd" min="-Infinity" max="Infinity">
+<expr>0.1</expr>
+</v>
+</variables>
+</inst>
+<trg id="00tKkWl3tik"/>
+</cs>
+</inst>
+</std>
+</prj>

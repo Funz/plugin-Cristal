@@ -1,0 +1,169 @@
+DEBUT_APOLLO2
+*=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+*      CIGALES version 3.0  en date du 07/07/2004
+*                Creation du Fichier le 15/07/2004 09:14:48
+*=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+*                   -=- INITIALISATION - CALCUL 1 -=-
+TOPT = TABLE:                                                        ;
+TRES = TABLE:                                                        ;
+TSTR = TABLE:                                                        ;
+TOPT.'CALCUL_CRISTAL' = 1                                            ;
+REPPROC            = OUVRIR: 22 'VARIABLE' 1024 10000
+                               'ADRESSE' 'aprocristal'               ;
+CHARGE_APROCRISTAL = LIRE: REPPROC 'APROC' 'CHARGE_APROCRISTAL'      ;
+FERMER: REPPROC                                                      ;
+EXECUTER CHARGE_APROCRISTAL                                          ;
+TRES TSTR TOPT = INITIALISER_CRISTAL 1 TSTR TOPT TRES                ;
+*            -=- OPTIONS -=-
+*
+TOPT.'STCRI'.'NGROUP_FINAL' = 20                                     ; 
+TOPT.'STCRI'.'ANISOTROPIE'  = 'P3'                                   ; 
+*
+*==============================================================
+* APOLLO SN KEFF CALCUL  1
+*==============================================================
+*
+*SN KEFF 1D B= 1 V=12.16 CAS 1                                                   
+TITRE: 'SN KEFF 1D B= 1 V=12.16 CAS 1                                ' ;
+CALCUL_AP2 =  1 ;
+WRITE: TOPT.'RESU' 'SN1D nitrate Pu4 C(X)=40.000 H/X=649.309 '
+'B= 1 V=12.16 CAS 1'                                                   ;
+*
+*            -=- Description des milieux -=-
+*nitrate Pu4 C(X)=40.0000 H/X=649.3090 MEL:(g/l)=0.00 H+=0.00             
+nom_calc =  'MILHOM1'                                                ;
+TOPT.'STCRI'.'CALCUL_INITIAL' = nom_calc                             ;
+TOPT.'STCRI'.'CALCULS_INITIAUX'.nom_calc = TABLE:                    ;
+TSTR.nom_calc = TABLE:                                               ;
+*
+nom_mil = 'nitrate Pu4 C(X)=40,00'                                   ;
+TOPT.'STMIL'.nom_mil = TABLE:                                        ;
+TOPT.'STMIL'.nom_mil.'PU239    '  =    7.15441E-05                   ; 
+TOPT.'STMIL'.nom_mil.'PU240    '  =    1.70588E-05                   ; 
+TOPT.'STMIL'.nom_mil.'PU241    '  =    1.09921E-05                   ; 
+TOPT.'STMIL'.nom_mil.'PU242    '  =    9.95147E-07                   ; 
+TOPT.'STMIL'.nom_mil.'H2O      '  =    3.26570E-02                   ; 
+TOPT.'STMIL'.nom_mil.'O16      '  =    1.20708E-03                   ; 
+TOPT.'STMIL'.nom_mil.'N14      '  =    4.02360E-04                   ; 
+TOPT.'STMIL'.nom_mil.'TEMPERATURE'  =  21.                           ; 
+*
+TRES TSTR TOPT = GENERE_MILIEUX_S 2 TSTR TOPT TRES                   ;
+*
+*                         -=- Creation de la geometrie -=-
+*
+TSTR.nom_calc.'GEO' = GEOM: &CYLI &MAIL 1 &EQD 1. 
+                            &MILI TSTR.'MILREF'.nom_mil  1           ;
+*
+*            -=- Creation de la bibliotheque interne -=-
+*
+TSTR.'APOLIB' = BIBINT: &EDIT 1 TSTR.'IDB' TSTR.nom_calc.'GEO' 
+                                &SFIN &TP
+                                ( TEXTE TOPT.'REPBIB' )              ;
+*
+*            -=-  autoprotection -=-
+*
+TSTR.'GEOAU' = TSTR.nom_calc.'GEO'                                   ;
+TRES TSTR TOPT = AUTOPROTECTION_CRI_S 1 TSTR TOPT TRES               ;
+*
+*            -=- Flux a B2 nul -=-
+*
+TOPT.'TYPE_B2' = 'NUL'                                               ;
+TRES TSTR TOPT = CALFLUX_PIJ_CRI_S 1 TSTR TOPT TRES                  ;
+*
+*            -=- Flux a B2 critique -=-
+*
+SI ( TRES.'KINF' GT 1. )                                             ;
+TOPT.'TYPE_B2' = 'CRITIQUE'                                          ;
+TRES TSTR TOPT = CALFLUX_PIJ_CRI_S 1 TSTR TOPT TRES                  ;
+FINSI                                                                ;
+*
+TOPT.'STCRI'.'CALCULS_INITIAUX'.nom_calc.'B2' = TRES.'B2'            ;
+TOPT.'STCRI'.'CALCULS_INITIAUX'.nom_calc.'KINF' = TRES.'KINF'        ;
+*
+*            -=- Condensation homogeneisation  -=-
+*
+TRES TSTR TOPT = HOMOGE_COND_S  1 TSTR TOPT TRES                     ;
+*
+*            -=- CREATION DE LA MACROLIB -=-
+*                                -=- Options -=-
+TOPT.'STCRI'.'B2'  = 0.                                              ;
+*                                -=- Calcul -=-
+TRES TSTR TOPT = MACRO_GLOBALE_S 1 TSTR TOPT TRES                    ;
+*
+*          <<<< CALCUL FINAL >>>>
+*
+*            -=- Géométrie -=-
+TSTR.'GEO_SN' = GEOM:  &CYLI &MAIL &X
+ 12 &EQD 12.16
+ &MILI
+       TSTR.'MILHOM1'.'MILEQ'  1  &A  12
+                                                                     ;
+*
+*            -=- Options -=-
+TOPT.'STCRI'.'DIM'           = 1                                     ;
+TOPT.'STCRI'.'TXT_CDL'       = '&VIDE'                               ;
+TOPT.'STCRI'.'TYPGEO'        = 'CYLINDRIQUE'                         ;
+TOPT.'STCRI'.'ACCELERATION'  = 'SIM'                                 ;
+TOPT.'STCRI'.'PRECI'         = 1.E-5                                 ;
+TOPT.'STCRI'.'QUADRATURE'    = 8                                     ;
+TOPT.'STCRI'.'NBEXT'         = 150                                   ;
+*
+*            -=- Flux -=-
+TRES TSTR TOPT = CALCUL_SN_S 2 TSTR TOPT TRES                        ;
+*
+FERMER: ( TEXTE TOPT.'REPBIB' )                                      ;
+DETRUIRE: TSTR TOPT TRES  nom_calc nom_mil                           ;
+*
+EDTIME: ;
+ARRET: ;
+FIN_APOLLO2
+*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+*      CIGALES version 1.0   en date du 27/10/1999
+*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+*                  RAPPEL GEOMETRIE   SN KEFF 1D
+*_____________________________________________________________________
+* GEOMETRIE CYLINDRIQUE BIBLIO CEA93.V4 ANISOTROPIE P3 ORDRE SN 8
+*_____________________________________________________________________
+* ZONES    1 
+* NB PTS  1
+* EPAIS    VA
+* CHIMIE   FIShomo
+*=====================================================================
+* MILIEU FISSILE HOMOGENE de la ZONE: 1
+* LOI DE DILUTION : Nitrate de Pu IV
+*_______________________________________________________________________
+*     VECTEUR ISOTOPIQUE    MASSE
+*_______________________________________________________________________
+*     Plutonium:
+*     Pu238:          
+*     Pu239:71        
+*     Pu240:17        
+*     Pu241:11        
+*     Pu242:1         
+*     Am241:          
+*_______________________________________________________________________
+* MASSES ATOMIQUES MOYENNES
+* Uranium:  - Plutonium: 239.47086 - Uranium+Plutonium: 239.47086
+*_______________________________________________________________________
+*     ACIDITE NULLE
+*_______________________________________________________________________
+* EXPRESSION DE LA MODERATION : C(Pu) g/l
+* 40.0000     
+*=======================================================================
+(
+SN KEFF 1D B= 1 V=12.16 CAS 1
+SN1D nitrate Pu4 C(X)=40.000 H/X=649.309 §B= 1 V=12.16 CAS 1            
+)
+OPTION V4 GROUP 20 P3 ORDRE 8 FINOPTION
+SNKEFF  CYLINDRE
+ 1        12 12.16
+* Milieu fissile homogene pour SN Keff
+GEOMETRIE HOMOGENE
+CHIMIE
+*nitrate Pu4 C(X)=40.0000     H/X=649.3090      MEL:(g/l)=0.00      H+=0.00
+ MICRO 1 7 
+    PU239 PU240 PU241 PU242 H2O O16 N14
+   VERIF 1.058368 7.154405E-05 1.705879E-05 1.099211E-05 9.95147E-07 
+   3.265703E-02 1.207081E-03 4.023604E-04
+FINC
+FIND

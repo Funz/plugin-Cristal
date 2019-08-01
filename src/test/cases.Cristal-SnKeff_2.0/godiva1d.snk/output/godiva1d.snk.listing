@@ -1,0 +1,1174 @@
+Date: jeudi 1 août 2019, 12:26:08 (UTC+0200)
+Machine d'execution : snc-23
+Fichier de donnees : godiva1d.snk.1564655168
+
+
+   #     ######   #######  #        #        #######  
+  # #    #     #  #     #  #        #        #     #  
+ #   #   #     #  #     #  #        #        #     #  
+#     #  ######   #     #  #        #        #     #  
+#######  #        #     #  #        #        #     #  
+#     #  #        #     #  #        #        #     #  
+#     #  #        #######  #######  #######  #######  
+
+========================================================================
+=======================     RAPPEL DES DONNEES APOLLO   ================
+========================================================================
+*=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+*     LATEC version 1.4.0 (2018.04.25.17.33) - 25.04.2018 
+*     Creation du fichier le jeudi 1 août 2019
+*=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+*            -=- INITIALISATION - CALCUL Geometry_1D-=-
+
+TOPT = TABLE:                                                        ;
+TRES = TABLE:                                                        ;
+TSTR = TABLE:                                                        ;
+TOPT.'CALCUL_CRISTAL' = 1                                            ;
+REPPROC            = OUVRIR: 22 'VARIABLE' 1024 10000
+                               'ADRESSE' 'aprocristal'               ;
+CHARGE_APROCRISTAL = LIRE: REPPROC 'APROC' 'CHARGE_APROCRISTAL'      ;
+FERMER: REPPROC                                                      ;
+EXECUTER CHARGE_APROCRISTAL                                          ;
+TRES TSTR TOPT = INITIALISER_CRISTAL 1 TSTR TOPT TRES                ;
+*            -=- OPTIONS -=-                                          
+*         
+TOPT.'STCRI'.'NGROUP_FINAL' = 20 ;
+TOPT.'STCRI'.'ANISOTROPIE' = 'P3' ;
+*
+*==============================================================
+* APOLLO SN KEFF CALCUL 1
+*==============================================================
+* Umetal
+TITRE: 'Sn KEFF 1D' ;
+CALCUL_AP2 =  1 ;
+*
+*            -=- Description des milieux -=-
+
+* 
+* 
+* Umetal
+nom_calc = 'REFLEC0' ;
+TOPT.'STCRI'.'CALCUL_INITIAL' = nom_calc                             ;
+TOPT.'STCRI'.'CALCULS_INITIAUX'.nom_calc = TABLE:                    ;
+TSTR.nom_calc = TABLE:                                               ;
+
+*Umetal
+nom_mil = 'FISSIL REFLEC0 ' ;
+TOPT.'STMIL'.nom_mil = TABLE: ;
+TOPT.'STMIL'.nom_mil.'U238    ' = 2.49865E-03 ;
+TOPT.'STMIL'.nom_mil.'U235    ' = 4.49988E-02 ;
+TOPT.'STMIL'.nom_mil.'U234    ' = 4.91895E-04 ;
+TOPT.'STMIL'.nom_mil.'TEMPERATURE' = 21.0 ;
+WRITE: TOPT.'RESU' 'Umetal X:U C(X)=18742  H/X=0 ' ;
+WRITE: TOPT.'RESU' 'U=235.19021 ' ;
+*
+
+TOPT.'STCRI'.'type_mil' = 'FISSIL';
+
+TOPT.'tauto' = TABLE: ;
+
+TOPT.'tauto' = INITABLE:
+
+'U238' 'PU240' 'U235' 'PU239' 'PU241'
+
+'PU242' 'U236' 'PU238' 'U233' 'U234'
+
+'NP237' 'AM241' 'AM243' 'TH232' 'ER166'
+
+'ER167' 'EU151' 'EU153' 'GD154' 'GD156'
+
+'GD155' 'GD157' 'GD158' 'GD160' 'SM147'
+
+'SM149' 'SM152' 'AG107' 'AG109' 'IN115'
+
+'CD110' 'CD113'
+
+'ZR90' 'ZR91' 'ZR92' 'ZR94' 'ZR96'
+
+'HF174' 'HF176' 'HF177' 'HF178'
+
+'HF179' 'HF180' 'CM243' 'TC99' 'CS133'
+
+'MO95' 'RH103' 'ND145' 'DY160' 'DY161'
+
+'DY162' 'DY163' 'DY164'
+
+'AL27'
+
+'SM150' 'SM151' 'ND143' 'RU101' 'RH103';
+
+*
+TRES TSTR TOPT = GENERE_MILIEUX_S 2 TSTR TOPT TRES ;
+*
+*                         -=- Creation de la geometrie -=-
+*
+TSTR.nom_calc.'GEO' = GEOM:  &CYLI &MAIL
+ 1 &EQD 1.0
+&MILI TSTR.'MILREF'.nom_mil 1 ;
+*
+*            -=- Creation de la bibliotheque interne -=-
+*
+TSTR.'APOLIB' = BIBINT: &EDIT 1 TSTR.'IDB' TSTR.nom_calc.'GEO'
+                                &SFIN &TP
+                                ( TEXTE TOPT.'REPBIB' )              ;
+
+*
+*            -=- Autoprotection -=-
+*
+TRES TSTR TOPT = AUTOPROTECTION_CRI_S 1 TSTR TOPT TRES               ;
+
+*
+*            -=- Flux a B2 nul -=-
+*
+TOPT.'TYPE_B2' = 'NUL'                                               ;
+TRES TSTR TOPT = CALFLUX_PIJ_CRI_S 1 TSTR TOPT TRES                  ;
+*
+*            -=- Flux a B2 critique -=-
+*
+SI ( TRES.'KINF' GT .8 )                                             ;
+TOPT.'TYPE_B2' = 'CRITIQUE'                                          ;
+TRES TSTR TOPT = CALFLUX_PIJ_CRI_S 1 TSTR TOPT TRES                  ;
+FINSI                                                                ;
+*
+TOPT.'STCRI'.'CALCULS_INITIAUX'.nom_calc.'B2' = TRES.'B2'            ;
+TOPT.'STCRI'.'CALCULS_INITIAUX'.nom_calc.'KINF' = TRES.'KINF'        ;
+*
+*            -=- Condensation homogeneisation -=-
+*
+TRES TSTR TOPT = HOMOGE_COND_S  1 TSTR TOPT TRES                     ;
+*
+*            -=- CREATION DE LA MACROLIB -=-
+*                                -=- Options -=-
+TOPT.'STCRI'.'B2'  = 0.                                              ;
+*                                -=- Calcul -=-
+TRES TSTR TOPT = MACRO_GLOBALE_S 1 TSTR TOPT TRES                    ;
+*
+*          <<<< CALCUL FINAL >>>>
+*
+
+*            -=- Geometrie -=-
+TSTR.'GEO_SN' = GEOM:  &SPHE &MAIL
+&X
+9 &EQD 8.741
+&MILI
+TSTR.'REFLEC0'.'MILEQ' 1 &A 9
+                                                                     ;
+*
+*            -=- Options -=-
+TOPT.'STCRI'.'DIM'           = 1                                     ;
+TOPT.'STCRI'.'TXT_CDL'       = '&VIDE'                               ;
+TOPT.'STCRI'.'TYPGEO'        = 'SPHERIQUE'                           ;
+TOPT.'STCRI'.'ACCELERATION'  = 'SIM'                                 ;
+TOPT.'STCRI'.'PRECI'         = 1.E-5                                 ;
+TOPT.'STCRI'.'QUADRATURE'    = 16                       ;
+TOPT.'STCRI'.'NBEXT'         = 150                                   ;
+*
+
+*            -=- Flux -=-
+TRES TSTR TOPT CALCUL_SN_S 1 TSTR TOPT TRES                        ;
+*
+
+FERMER: ( TEXTE TOPT.'REPBIB' )                                      ;
+DETRUIRE: TSTR TOPT TRES  nom_calc nom_mil                           ;
+
+*                                                                   
+EDTIME: ;                                                           
+ARRET: ;                                                            
+Date 08/01/19  ESOPEI8  version 6.02 (c)Copyright CEA/DEN/DM2S/SERMA 10/2010
+ *** GEMAT 18.0  SEP  9 ***  ESOPE= 199999992 (MOTS)  BUF=     0 (MOTS)
+  *** GEMAT           18 .           0   SEP           9 ***  ESOPE=
+             199999992  (MOTS)  BUF=                     0  (MOTS)
+101.AOU.2019 SAPHTOOL version  214 (c)Copyright CEA/DEN/DM2S/SERMA 12/201 PAGE   1
+   
+    1 "*=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+                             "            
+    2 "*     LATEC version 1.4.0 (2018.04.25.17.33) - 25.04.2018                       "            
+    3 "*     Creation du fichier le jeudi 1 août 2019                                 "            
+    4 "*=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+                             "            
+    5 "*            -=- INITIALISATION - CALCUL Geometry_1D-=-                         "            
+    6 "                                                                                "            
+    7 "TOPT = TABLE:                                                        ;          "            
+    8 "TRES = TABLE:                                                        ;          "            
+    9 "TSTR = TABLE:                                                        ;          "            
+   10 "TOPT.'CALCUL_CRISTAL' = 1                                            ;          "            
+   11 "REPPROC            = OUVRIR: 22 'VARIABLE' 1024 10000                           "            
+   12 "                               'ADRESSE' 'aprocristal'               ;          "            
+   
+ ==> Avertissement : Le fichier 22 est reserve aux procedures GIBIANE du code
+  Le Nombre d'enregistrements  n'est pas        10000  mais          500 .
+ Le fichier 22 est ouvert.
+   13 "CHARGE_APROCRISTAL = LIRE: REPPROC 'APROC' 'CHARGE_APROCRISTAL'      ;          "            
+   14 "FERMER: REPPROC                                                      ;          "            
+   15 "EXECUTER CHARGE_APROCRISTAL                                          ;          "            
+   
+ ==> Avertissement : Le fichier 22 est reserve aux procedures GIBIANE du code
+  Le Nombre d'enregistrements  n'est pas        10000  mais         4046 .
+ Le fichier 22 est ouvert.
+ Le fichier 10 est ouvert.
+101.AOU.2019 SAPHTOOL version  214 (c)Copyright CEA/DEN/DM2S/SERMA 12/201 PAGE   2
+   
+101.AOU.2019                          APOLLO2.8-3 v.1223.C  (C)Copyright CEA/DRN/DMT/SERMA 12/2012                          PAGE   3
+   
+     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+     %%%%%%%%%%%%                                                                       %  
+     %%%%% %%%%%%         APOLLO 2    -    CODE MODULAIRE DE TRANSPORT MULTIGROUPE      %  
+     %%%%   %%%%%                                                                       %  
+     %%%  %  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+     %%  %%%  %%%%%%%%%%%%                                                              %  
+     %%  %%%  %%%      %%%             VERSION: 2.8-3.C                                 %  
+     %%  %%%  %%%       %%                                                              %  
+     %%       %%%  %%%%  %%%%%%%%%%%                                                    %  
+     %%       %%%  %%%%  %%%%%%%%%%%                ASSISTANCE:                         %  
+     %%  %%%  %%%  %%%%  %%       %%                                                    %  
+     %%%%%%%%%%%%       %%%       %%              Tel:    (33) 01 69 08 98 33           %  
+     %%%%%%%%%%%%     %%%%%  %%%  %%%%%%%%%%%%    Fax:    (33) 01 69 08 94 90           %  
+     %         %%  %%%%%%%%  %%%  %%%%%%%%%%%%    E-mail: maintenance.apollo2(a)cea.fr  %  
+     %         %%  %%%%%%%%  %%%  %%%  %%%%%%%                                          %  
+     %         %%%%%%%%%%%%  %%%  %%%  %%%%%%%                                          %  
+     %         %%%%%%%%%%%%  %%%  %%%  %%%%%%%%%%%%%%%%%                                %  
+     %                   %%       %%%  %%%%%%%%%%%%%%%%%                                %  
+     %                   %%       %%%  %%%%%%%%  %%%%%%%                                %  
+     %                   %%%%%%%%%%%%  %%%%%%%%  %%%%%%%                                %  
+     %                   %%%%%%%%%%%%  %%%%%%%%  %%%%%%%%%%%%%%%%%                      %  
+     %                             %%       %%%  %%%%%%%%%%%%%%%%%                      %  
+     %                             %%       %%%  %%%%%%%%       %%                      %  
+     %                             %%%%%%%%%%%%  %%%%%%%%       %%                      %  
+     %                             %%%%%%%%%%%%  %%%%%%%%  %%%  %%%%%%%%%%%%            %  
+     %                                       %%       %%%  %%%  %%%%%%%%%%%%            %  
+     %                                       %%       %%%  %%%  %%%%%%%%%%%%            %  
+     %                                       %%%%%%%%%%%%  %%%  %%%%%%%%%%%%            %  
+     %                                       %%%%%%%%%%%%  %%%  %%%%%%%%%%%%%%%%%%%%%%%%%  
+     %                                                 %%       %%%%%%%%%%%%%%%%%%%%%%%%%  
+     %                                                 %%       %%%%     %%%%%       %%%%  
+     %    LE 01 AOUT 19 A 12:26                        %%%%%%%%%%%%%%%%%%%%%%  %%%%   %%%  
+     %                                                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%  %%%  
+     %                                                           %%%%%%%%%%%%%%%%%%   %%%  
+     %                                                           %%%%%%%%%%%%%       %%%%  
+     %                                                           %%%%%%%%%%%%   %%%%%%%%%  
+     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  %%%%%%%%%%  
+     %                                                                     %%  %%%%%%%%%%  
+     %  ==>  APOLLO2.8-3 v.1223.C  (C)Copyright CEA/DRN/DMT/SERMA 12/2012  %%         %%%  
+     %  ==>  SAPHTOOL version  214 (C)Copyright CEA/DRN/DMT/SERMA 12/2010  %%%%%%%%%%%%%%  
+     %                                                                     %%%%%%%%%%%%%%  
+     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+   
+ ==> Avertissement : Le fichier 22 est reserve aux procedures GIBIANE du code
+  Le Nombre d'enregistrements  n'est pas        10000  mais         4046 .
+ Le fichier 22 est ouvert.
+   
+                                           **********************************************
+                                           * VOUS UTILISEZ APROC Evolution numero   265 *
+                                           **********************************************
+   
+ ==> Avertissement : Le fichier 22 est reserve aux procedures GIBIANE du code
+  Le Nombre d'enregistrements  n'est pas        10000  mais          500 .
+ Le fichier 22 est ouvert.
+   
+                                             ******************************************
+                                             *  APROC_CRISTAL VERSION V2.0            *
+                                             *  CONTENU DE CETTE BIBLIOTHEQUE         *
+                                             *  ------------------------------------- *
+                                             *                                        *
+                                             *  ADJOINT_SN_S          Version   1     *
+                                             *  AUTOPROTECTION_CRI_S  Version   12    *
+                                             *  AUTOP_MIX_CRI_S       Version   3     *
+                                             *  BIBLIO_CRISTAL_S      Version   2     *
+                                             *  BORNE_AUTOP_TRD       Version   2     *
+                                             *  CALCUL_SN_S           Version   6     *
+                                             *  CALFLUX_PIJ_CRI_S     Version   4     *
+                                             *  CONVERSION_LAPLA_S    Version   8     *
+                                             *  CRISTAL_ISO_NAT       Version   7     *
+                                             *  ENTIER_TO_CH          Version   1     *
+                                             *  FERMI_L2_S            Version   3     *
+                                             *  GENERE_ADR_S          Version   4     *
+                                             *  GENERE_GEO_EQUI_S     Version   6     *
+                                             *  GENERE_GEO_S          Version   5     *
+                                             *  GENERE_MILIEUX_S      Version   14    *
+                                             *  HOMOGE_COND_S         Version   9     *
+                                             *  INITIALISER_CRISTAL   Version   9     *
+                                             *  INIT_STIMP_CRI        Version   2     *
+                                             *  INV_TABLE_ISOT        Version   1     *
+                                             *  LIRE_APOLIB_S         Version   3     *
+                                             *  MACRO_GLOBALE_S       Version   5     *
+                                             *  MAIL_COND_CRI         Version   2     *
+                                             *  RECHERCHE_DIM_S       Version   17    *
+                                             *  SENSIBILITE_CRI_S     Version   2     *
+                                             *  SENSIB_S              Version   2     *
+                                             *  SORTIE_FCARA_S        Version   6     *
+                                             *  TABLE_ISOT            Version   1     *
+                                             ******************************************
+                    ------------------------------------------
+                    |  APROC_CRISTAL VERSION V2.0            |
+                    |  CONTENU DE CETTE BIBLIOTHEQUE         |
+                    |  ------------------------------------- |
+                    |                                        |
+                    |  ADJOINT_SN_S          Version   1     |
+                    |  AUTOPROTECTION_CRI_S  Version   12    |
+                    |  AUTOP_MIX_CRI_S       Version   3     |
+                    |  BIBLIO_CRISTAL_S      Version   2     |
+                    |  BORNE_AUTOP_TRD       Version   2     |
+                    |  CALCUL_SN_S           Version   6     |
+                    |  CALFLUX_PIJ_CRI_S     Version   4     |
+                    |  CONVERSION_LAPLA_S    Version   8     |
+                    |  CRISTAL_ISO_NAT       Version   7     |
+                    |  ENTIER_TO_CH          Version   1     |
+                    |  FERMI_L2_S            Version   3     |
+                    |  GENERE_ADR_S          Version   4     |
+                    |  GENERE_GEO_EQUI_S     Version   6     |
+                    |  GENERE_GEO_S          Version   5     |
+                    |  GENERE_MILIEUX_S      Version   14    |
+                    |  HOMOGE_COND_S         Version   9     |
+                    |  INITIALISER_CRISTAL   Version   9     |
+                    |  INIT_STIMP_CRI        Version   2     |
+                    |  INV_TABLE_ISOT        Version   1     |
+                    |  LIRE_APOLIB_S         Version   3     |
+                    |  MACRO_GLOBALE_S       Version   5     |
+                    |  MAIL_COND_CRI         Version   2     |
+                    |  RECHERCHE_DIM_S       Version   17    |
+                    |  SENSIBILITE_CRI_S     Version   2     |
+                    |  SENSIB_S              Version   2     |
+                    |  SORTIE_FCARA_S        Version   6     |
+                    |  TABLE_ISOT            Version   1     |
+                    |----------------------------------------|
+   16 "TRES TSTR TOPT = INITIALISER_CRISTAL 1 TSTR TOPT TRES                ;          "            
+   
+                                    ************************************************************
+                                    * Execution de la procedure INITIALISER_CRISTAL version  9 *
+                                    ************************************************************
+   
+ ######## 12:26:09     Execution du module OPTION:    ################
+ 12:26:09      0.12s module OPTION:               0 mots            0 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.12s # Mem:      1243952 mots # Max:      1251736 mots #
+   
+ ######## 12:26:09     Execution du module OPTION:    ################
+ 12:26:09      0.12s module OPTION:         1243952 mots      1251736 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.12s # Mem:      1243960 mots # Max:      1251736 mots #
+   
+ ######## 12:26:09     Execution du module OPTION:    ################
+ 12:26:09      0.12s module OPTION:         1243960 mots      1251736 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.12s # Mem:      1243952 mots # Max:      1251736 mots #
+                                      ********************************************************
+                                      * Execution de la procedure INIT_STIMP_CRI version   2 *
+                                      ********************************************************
+ Le fichier 92 est ouvert.
+ Fichier ouvert en SEQUENTIEL FORMATE     avec le status : UNKNOWN
+ Le fichier 34 est ouvert.
+ Fichier ouvert en SEQUENTIEL FORMATE     avec le status : UNKNOWN
+ Le fichier 32 est ouvert.
+ Fichier ouvert en SEQUENTIEL FORMATE     avec le status : UNKNOWN
+                                     **********************************************************
+                                     * Execution de la procedure BIBLIO_CRISTAL_S version   2 *
+                                     **********************************************************
+                                               ***************************************
+                                               * UTILISATION DE LA BIBLIOTHEQUE  CEA *
+                                               ***************************************
+   
+ ######## 12:26:09     Execution du module TSAENV:    ################
+ 12:26:09      0.13s module TSAENV:         1243952 mots      1251736 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.13s # Mem:      1266976 mots # Max:      1283712 mots #
+   
+ ######## 12:26:09     Execution du module TSAENV:    ################
+ 12:26:09      0.13s module TSAENV:         1266976 mots      1283712 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.13s # Mem:      1266968 mots # Max:      1283712 mots #
+   
+ ######## 12:26:09     Execution du module TSAENV:    ################
+ 12:26:09      0.13s module TSAENV:         1266968 mots      1283712 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.13s # Mem:      1266976 mots # Max:      1283712 mots #
+   
+ ######## 12:26:09     Execution du module TSAENV:    ################
+ 12:26:09      0.13s module TSAENV:         1266976 mots      1283712 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.13s # Mem:      1267008 mots # Max:      1283712 mots #
+   
+ ######## 12:26:09     Execution du module LONG_CHAINE: ################
+ 12:26:09      0.13s module LONG_CHAINE:      1267008 mots      1283712 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.13s # Mem:      1267000 mots # Max:      1283712 mots #
+         ******************************************************************************************************************
+         * Vous utilisez la bibliotheque  /produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data//CEA.G281.V5.1.2.xsm  *
+         * Avec les TP larges             /produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data//CEA.V5.1.2.281.TP    *
+         * Avec les TP fines              /produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data//CEA.V5.1.2.UNIVSH.TP *
+         *       Nombre de groupes :      281                                                                             *
+         ******************************************************************************************************************
+  -------------------------------------------------------------------------------
+  | Vous utilisez la bibliotheque  /produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/ |
+  | Avec les TP larges             /produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/ |
+  | Avec les TP fines              /produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/ |
+  |       Nombre de groupes :      281                                          |
+  |-----------------------------------------------------------------------------|
+                      ---------------------------------------
+                      | V2.8-3.C/data//CEA.G281.V5.1.2.xsm  |
+                      | V2.8-3.C/data//CEA.V5.1.2.281.TP    |
+                      | V2.8-3.C/data//CEA.V5.1.2.UNIVSH.TP |
+                      |                                     |
+                      |-------------------------------------|
+   
+ ######## 12:26:09     Execution du module OUVRIR:    ################
+ 12:26:09      0.14s module OUVRIR:         1267000 mots      1283712 mots max
+  Le type de fichier n'est pas            5  mais           11 .
+ ## Fin # Tps:      0.00s ## Tps total:      0.13s # Mem:      1264720 mots # Max:      1283712 mots #
+   
+ ######## 12:26:09     Execution du module BIBEXT:    ################
+ 12:26:09      0.14s module BIBEXT:         1264720 mots      1283712 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.13s # Mem:      1319928 mots # Max:      1320000 mots #
+   
+ ######## 12:26:09     Execution du module OPTION_RECUP: ################
+ 12:26:09      0.14s module OPTION_RECUP:      1319928 mots      1320000 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.13s # Mem:      1320888 mots # Max:      1320944 mots #
+   
+ ######## 12:26:09     Execution du module OPTION:    ################
+ 12:26:09      0.14s module OPTION:         1320888 mots      1320944 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.13s # Mem:      1320888 mots # Max:      1321584 mots #
+   
+ ######## 12:26:09     Execution du module ISOTOPE:   ################
+ 12:26:09      0.72s module ISOTOPE:        1320888 mots      1321584 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.72s # Mem:      1379304 mots # Max:      1439640 mots #
+   
+ ######## 12:26:09     Execution du module OPTION_RECUP: ################
+ 12:26:09      0.72s module OPTION_RECUP:      1379304 mots      1439640 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.72s # Mem:      1383240 mots # Max:      1439640 mots #
+   
+ ######## 12:26:09     Execution du module OPTION:    ################
+ 12:26:09      0.72s module OPTION:         1383240 mots      1439640 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.72s # Mem:      1383216 mots # Max:      1439640 mots #
+                                             *******************************************
+                                             * Execution de la procedure MAIL_COND_CRI *
+                                             *******************************************
+                    -------------------------------------------
+                    | Execution de la procedure MAIL_COND_CRI |
+                    |-----------------------------------------|
+ Description du maillage final
+                                            *********************************************
+                                            * NOMBRE DE GROUPES :                       *
+                                            *  TOTAL                   :      20        *
+                                            *  THERMIQUES              :       9        *
+                                            *  D'ENERGIE DE FISSION    :       1        *
+                                            *  DE RENDEMENT DE FISSION :       1        *
+                                            * LETHARGIE INITIALE       :    0.00000E+00 *
+                                            * ENERGIE INFERIEURE (MeV) :    1.10000E-10 *
+                                            *********************************************
+                                          *************************************************
+                                          * OBTENU PAR CONDENSATION DE MAIL               *
+                                          * DU MICROGROUPE       1 AU MICROGROUPE     281 *
+                                          *************************************************
+                                                    ***************************
+                                                    * DESCRIPTION DU MAILLAGE *
+                                                    ***************************
+                                  ----------------------------------------------------------------
+                                  | GROUPE |   PREMIER   |   ENERGIE   | LARGEUR EN  | MEF | MRF |
+                                  |        | MICROGROUPE | SUPERIEURE  |  LETHARGIE  |     |     |
+                                  |        |             |   en MeV    |             |     |     |
+                                  ----------------------------------------------------------------
+                                  |    1   |       1     | 1.96403E+01 | 1.37500E+00 |  1  |  1  |
+                                  |    2   |      11     | 4.96585E+00 | 8.00000E-01 |  1  |  1  |
+                                  |    3   |      15     | 2.23130E+00 | 4.61999E-01 |  1  |  1  |
+                                  |    4   |      18     | 1.40577E+00 | 1.04580E+00 |  1  |  1  |
+                                  |    5   |      27     | 4.94002E-01 | 6.12198E-01 |  1  |  1  |
+                                  |    6   |      32     | 2.67827E-01 | 1.38000E+00 |  1  |  1  |
+                                  |    7   |      41     | 6.73795E-02 | 9.91501E-01 |  1  |  1  |
+                                  |    8   |      50     | 2.49991E-02 | 1.00850E+00 |  1  |  1  |
+                                  |    9   |      57     | 9.11882E-03 | 1.41300E+00 |  1  |  1  |
+                                  |   10   |      65     | 2.21963E-03 | 1.48700E+00 |  1  |  1  |
+                                  |   11   |      74     | 5.01747E-04 | 2.10000E+00 |  1  |  1  |
+                                  |   12   |      86     | 6.14421E-05 | 2.65720E+00 |  1  |  1  |
+                                  |   13   |     195     | 4.30982E-06 | 1.93090E+00 |  1  |  1  |
+                                  |   14   |     248     | 6.25000E-07 | 5.71301E-01 |  1  |  1  |
+                                  |   15   |     255     | 3.52994E-07 | 4.23198E-01 |  1  |  1  |
+                                  |   16   |     260     | 2.31193E-07 | 5.15999E-01 |  1  |  1  |
+                                  |   17   |     264     | 1.38000E-07 | 5.90002E-01 |  1  |  1  |
+                                  |   18   |     268     | 7.64970E-08 | 9.59702E-01 |  1  |  1  |
+                                  |   19   |     274     | 2.92989E-08 | 1.03090E+00 |  1  |  1  |
+                                  |   20   |     278     | 1.04505E-08 | 4.55392E+00 |  1  |  1  |
+                                  ----------------------------------------------------------------
+  MEF : MACROGROUPE D'ENERGIE DE FISSION
+  MRF : MACROGROUPE DE RENDEMENT DE FISSION
+   17 "*            -=- OPTIONS -=-                                                    "            
+   18 "*                                                                               "            
+   19 "TOPT.'STCRI'.'NGROUP_FINAL' = 20 ;                                              "            
+   20 "TOPT.'STCRI'.'ANISOTROPIE' = 'P3' ;                                             "            
+   21 "*                                                                               "            
+   22 "*==============================================================                 "            
+   23 "* APOLLO SN KEFF CALCUL 1                                                       "            
+   24 "*==============================================================                 "            
+   25 "* Umetal                                                                        "            
+   26 "TITRE: 'Sn KEFF 1D' ;                                                           "            
+   27 "CALCUL_AP2 =  1 ;                                                               "            
+   28 "*                                                                               "            
+   29 "*            -=- Description des milieux -=-                                    "            
+   30 "                                                                                "            
+   31 "*                                                                               "            
+   32 "*                                                                               "            
+   33 "* Umetal                                                                        "            
+   34 "nom_calc = 'REFLEC0' ;                                                          "            
+   35 "TOPT.'STCRI'.'CALCUL_INITIAL' = nom_calc                             ;          "            
+   36 "TOPT.'STCRI'.'CALCULS_INITIAUX'.nom_calc = TABLE:                    ;          "            
+   37 "TSTR.nom_calc = TABLE:                                               ;          "            
+   38 "                                                                                "            
+   39 "*Umetal                                                                         "            
+   40 "nom_mil = 'FISSIL REFLEC0 ' ;                                                   "            
+   41 "TOPT.'STMIL'.nom_mil = TABLE: ;                                                 "            
+   42 "TOPT.'STMIL'.nom_mil.'U238    ' = 2.49865E-03 ;                                 "            
+   43 "TOPT.'STMIL'.nom_mil.'U235    ' = 4.49988E-02 ;                                 "            
+   44 "TOPT.'STMIL'.nom_mil.'U234    ' = 4.91895E-04 ;                                 "            
+   45 "TOPT.'STMIL'.nom_mil.'TEMPERATURE' = 21.0 ;                                     "            
+   46 "WRITE: TOPT.'RESU' 'Umetal X:U C(X)=18742  H/X=0 ' ;                            "            
+   47 "WRITE: TOPT.'RESU' 'U=235.19021 ' ;                                             "            
+   48 "*                                                                               "            
+   49 "                                                                                "            
+   50 "TOPT.'STCRI'.'type_mil' = 'FISSIL';                                             "            
+   51 "                                                                                "            
+   52 "TOPT.'tauto' = TABLE: ;                                                         "            
+   53 "                                                                                "            
+   54 "TOPT.'tauto' = INITABLE:                                                        "            
+   55 "                                                                                "            
+   56 "'U238' 'PU240' 'U235' 'PU239' 'PU241'                                           "            
+   57 "                                                                                "            
+   58 "'PU242' 'U236' 'PU238' 'U233' 'U234'                                            "            
+   59 "                                                                                "            
+   60 "'NP237' 'AM241' 'AM243' 'TH232' 'ER166'                                         "            
+   61 "                                                                                "            
+   62 "'ER167' 'EU151' 'EU153' 'GD154' 'GD156'                                         "            
+   63 "                                                                                "            
+   64 "'GD155' 'GD157' 'GD158' 'GD160' 'SM147'                                         "            
+   65 "                                                                                "            
+   66 "'SM149' 'SM152' 'AG107' 'AG109' 'IN115'                                         "            
+   67 "                                                                                "            
+   68 "'CD110' 'CD113'                                                                 "            
+   69 "                                                                                "            
+   70 "'ZR90' 'ZR91' 'ZR92' 'ZR94' 'ZR96'                                              "            
+   71 "                                                                                "            
+   72 "'HF174' 'HF176' 'HF177' 'HF178'                                                 "            
+   73 "                                                                                "            
+   74 "'HF179' 'HF180' 'CM243' 'TC99' 'CS133'                                          "            
+   75 "                                                                                "            
+   76 "'MO95' 'RH103' 'ND145' 'DY160' 'DY161'                                          "            
+   77 "                                                                                "            
+   78 "'DY162' 'DY163' 'DY164'                                                         "            
+   79 "                                                                                "            
+   80 "'AL27'                                                                          "            
+   81 "                                                                                "            
+   82 "'SM150' 'SM151' 'ND143' 'RU101' 'RH103';                                        "            
+   83 "                                                                                "            
+   84 "*                                                                               "            
+   85 "TRES TSTR TOPT = GENERE_MILIEUX_S 2 TSTR TOPT TRES ;                            "            
+                                     **********************************************************
+                                     * Execution de la procedure GENERE_MILIEUX_S version  14 *
+                                     **********************************************************
+   
+ ######## 12:26:09     Execution du module OPTION_RECUP: ################
+ 12:26:09      0.87s module OPTION_RECUP:      1383216 mots      1439640 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.87s # Mem:      1380464 mots # Max:      1439640 mots #
+   
+ ######## 12:26:09     Execution du module OPTION:    ################
+ 12:26:09      0.87s module OPTION:         1380464 mots      1439640 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.87s # Mem:      1380440 mots # Max:      1439640 mots #
+                                           ***********************************************
+                                           *  IMPRESSION D'UN OBJET APOLLO-2             *
+                                           *  DE NOM        : TSTR.MILREF.FISSIL REFLEC0 *
+                                           *  DE TYPE       : MILIEU                     *
+                                           ***********************************************
+                                           **********************************************
+                                           * DENSITE en g.cm-3              0.18743E+02 *
+                                           * MASSE ATOMIQUE MOYENNE         0.23519E+03 *
+                                           * DENSITE DES NOYAUX LOURDS      0.18743E+02 *
+                                           * TEMPERATURE ( DEGRES C)        0.21000E+02 *
+                                           * MAILLAGE   INDEFINI                        *
+                                           * APOLIB     INDEFINI                        *
+                                           **********************************************
+                                                     ************************
+                                                     * PARAMETRES DU MILIEU *
+                                                     ************************
+                           -------------------------------------------------------------------------------
+                           | NUMERO | FLUENCE  | BURNUP | ENERGIE  | TEMPS    | FLUXINT   |   PUISSANC   |
+                           | DU PAS |   n/kb   |  MWj/t |  Wjcm-3  |   MOIS   | n.b-1.s-1 | MeV.s-1.cm-3 |
+                           -------------------------------------------------------------------------------
+                           |    1   |    0.    |   0.   |    0.    |    0.    |    0.     |      0.      |
+                           -------------------------------------------------------------------------------
+                                                      **********************
+                                                      * CONTENU ISOTOPIQUE *
+                                                      * (1.E24 ATOMES/cm3) *
+                                                      **********************
+                                                   ------------------------------
+                                                   |    ISOTOPE   |  CONCENT.   |
+                                                   |              | AU PAS:   1 |
+                                                   ------------------------------
+                                                   | U238    0021 | 2.4990E-03  |
+                                                   | U235    0021 | 4.5000E-02  |
+                                                   | U234    0021 | 4.9190E-04  |
+                                                   ------------------------------
+ ==> PAS DE CHAINES D'EVOLUTION
+                                                        ********************
+                                                        * FIN D'IMPRESSION *
+                                                        ********************
+   86 "*                                                                               "            
+   87 "*                         -=- Creation de la geometrie -=-                      "            
+   88 "*                                                                               "            
+   89 "TSTR.nom_calc.'GEO' = GEOM:  &CYLI &MAIL                                        "            
+   90 " 1 &EQD 1.0                                                                     "            
+   91 "&MILI TSTR.'MILREF'.nom_mil 1 ;                                                 "            
+   
+ ######## 12:26:09     Execution du module GEOM:      ################
+ 12:26:09      0.89s module GEOM:           1380440 mots      1439640 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      0.89s # Mem:      1369616 mots # Max:      1439640 mots #
+   92 "*                                                                               "            
+   93 "*            -=- Creation de la bibliotheque interne -=-                        "            
+   94 "*                                                                               "            
+   95 "TSTR.'APOLIB' = BIBINT: &EDIT 1 TSTR.'IDB' TSTR.nom_calc.'GEO'                  "            
+   96 "                                &SFIN &TP                                       "            
+   97 "                                ( TEXTE TOPT.'REPBIB' )              ;          "            
+   
+ ######## 12:26:09     Execution du module BIBINT:    ################
+ 12:26:09      0.89s module BIBINT:         1369616 mots      1439640 mots max
+                                          **********************************************
+                                          * ISOTOPES DE LA BIBLIOTHEQUE EXTERNE BIBLIO *
+                                          *                    (  )                    *
+                                          *              SUR LE FICHIER   2            *
+                                          **********************************************
+                                       ------------------------------------------------------
+                                       |      NOM     | ANISOTROPIE | ANISOTROPIE |   NOM   |
+                                       |    INTERNE   |  DIFFUSION  |  TRANSFER   | EXTERNE |
+                                       ------------------------------------------------------
+                                       | U238    0021 |     P5      |     P5      |  U238   |
+                                       | U235    0021 |     P5      |     P5      |  U235   |
+                                       | U234    0021 |     P5      |     P5      |  U234   |
+                                       ------------------------------------------------------
+                                          **********************************************
+                                          * DONNEES D AUTOPROTECTION B. EXTERNE BIBLIO *
+                                          *                    (  )                    *
+                                          *              SUR LE FICHIER   2            *
+                                          **********************************************
+                                                     --------------------------
+                                                     |      NOM     |   NOM   |
+                                                     |    INTERNE   | EXTERNE |
+                                                     --------------------------
+                                                     | U238    0021 | U238SS  |
+                                                     | U235    0021 | U235SS  |
+                                                     | U234    0021 | U234SS  |
+                                                     --------------------------
+ ## Fin # Tps:      0.11s ## Tps total:      1.00s # Mem:      2092144 mots # Max:      2773336 mots #
+   98 "                                                                                "            
+   99 "*                                                                               "            
+  100 "*            -=- Autoprotection -=-                                             "            
+  101 "*                                                                               "            
+  102 "TRES TSTR TOPT = AUTOPROTECTION_CRI_S 1 TSTR TOPT TRES               ;          "            
+                                   **************************************************************
+                                   * Execution de la procedure AUTOPROTECTION_CRI_S version  12 *
+                                   **************************************************************
+          --------------------------------------------------------------
+          | Execution de la procedure AUTOPROTECTION_CRI_S version  12 |
+          |------------------------------------------------------------|
+   
+ ######## 12:26:10     Execution du module OPTION_RECUP: ################
+ 12:26:10      1.11s module OPTION_RECUP:      2092144 mots      2773336 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.10s # Mem:      2123096 mots # Max:      2773336 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.11s module OPTION:         2123096 mots      2773336 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.10s # Mem:      2123064 mots # Max:      2773336 mots #
+                                            *********************************************
+                                            * EXECUTION DE LA PROCEDURE AUTOP_TRD_CRI_S *
+                                            *              AVEC ITERATIONS              *
+                                            *              EN HOMOGENE                  *
+                                            *  AVEC CONDITION AUX LIMITES :  REFLEXION  *
+                                            *                                           *
+                                            * L'ORDRE D'AUTOPROTECTION DES ISOTOPES     *
+                                            * EST LE SUIVANT :                          *
+                                            * U238                                      *
+                                            * U235                                      *
+                                            * U234                                      *
+                                            *********************************************
+              *********************************************************************************************************
+              * Adresse fichier XSM   /produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/data//CEA.V5.1.2.UNIVSH.TP *
+              *********************************************************************************************************
+  -------------------------------------------------------------------------------
+  | Adresse fichier XSM   /produits/sec/FORMULAIRE_CRISTAL_V2/APOLLO2/V2.8-3.C/ |
+  |-----------------------------------------------------------------------------|
+                          ------------------------------
+                          | data//CEA.V5.1.2.UNIVSH.TP |
+                          |----------------------------|
+                                                  *********************************
+                                                  * TRAITEMENT DE L'ISOTOPE  U238 *
+                                                  *********************************
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.16s module AUTOP:          2123064 mots      2773336 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.15s # Mem:      6034104 mots # Max:      7579672 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.16s module AUTOP:          6034104 mots      7579672 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.16s # Mem:      6036312 mots # Max:      7579672 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.16s module OPTION:         6036312 mots      7579672 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.16s # Mem:      5975160 mots # Max:      7579672 mots #
+                                                  *********************************
+                                                  * TRAITEMENT DE L'ISOTOPE  U235 *
+                                                  *********************************
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.20s module AUTOP:          5975160 mots      7579672 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.19s # Mem:      9739216 mots # Max:     11253808 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.20s module AUTOP:          9739216 mots     11253808 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.20s # Mem:      9739224 mots # Max:     11253808 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.20s module AUTOP:          9739224 mots     11253808 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.20s # Mem:      9691664 mots # Max:     11253808 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.20s module OPTION:         9691664 mots     11253808 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.20s # Mem:      9689344 mots # Max:     11253808 mots #
+                                                  *********************************
+                                                  * TRAITEMENT DE L'ISOTOPE  U234 *
+                                                  *********************************
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.24s module AUTOP:          9689344 mots     11253808 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.24s # Mem:     13550912 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.24s module AUTOP:         13550912 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.24s # Mem:     13563200 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.24s module OPTION:        13563200 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.24s # Mem:     13467880 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.26s module AUTOP:         13467880 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.25s # Mem:     13470480 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.26s module OPTION:        13470480 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.25s # Mem:     13411552 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.27s module AUTOP:         13411552 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.27s # Mem:     13414136 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.27s module AUTOP:         13414136 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.27s # Mem:     13457696 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.27s module OPTION:        13457696 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.27s # Mem:     13455376 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.28s module AUTOP:         13455376 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.29s # Mem:     13514056 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.29s module OPTION:        13514056 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.29s # Mem:     13467904 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.30s module AUTOP:         13467904 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.30s # Mem:     13470504 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.30s module OPTION:        13470504 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.30s # Mem:     13411576 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.32s module AUTOP:         13411576 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.31s # Mem:     13414160 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.32s module AUTOP:         13414160 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.32s # Mem:     13457720 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.32s module OPTION:        13457720 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.32s # Mem:     13455400 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.33s module AUTOP:         13455400 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.33s # Mem:     13514080 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.33s module OPTION:        13514080 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.33s # Mem:     13467928 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.37s module AUTOP:         13467928 mots     15064440 mots max
+ ## Fin # Tps:      0.01s ## Tps total:      1.38s # Mem:     14538712 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.39s module OPTION:        14538712 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.38s # Mem:     14480008 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.40s module AUTOP:         14480008 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.40s # Mem:     13727568 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.41s module OPTION:        13727568 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.40s # Mem:     13687544 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.45s module AUTOP:         13687544 mots     15064440 mots max
+ ## Fin # Tps:      0.01s ## Tps total:      1.46s # Mem:     14543616 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.46s module OPTION:        14543616 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.46s # Mem:     14497736 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.48s module AUTOP:         14497736 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.48s # Mem:     13727592 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.48s module OPTION:        13727592 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.48s # Mem:     13687568 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.53s module AUTOP:         13687568 mots     15064440 mots max
+ ## Fin # Tps:      0.01s ## Tps total:      1.54s # Mem:     14543640 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.54s module OPTION:        14543640 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.54s # Mem:     14497760 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module AUTOP:     ################
+ 12:26:10      1.56s module AUTOP:         14497760 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.56s # Mem:     13727616 mots # Max:     15064440 mots #
+   
+ ######## 12:26:10     Execution du module OPTION:    ################
+ 12:26:10      1.56s module OPTION:        13727616 mots     15064440 mots max
+ ## Fin # Tps:      0.00s ## Tps total:      1.56s # Mem:     13687592 mots # Max:     15064440 mots #
+  103 "                                                                                "            
+  104 "*                                                                               "            
+  105 "*            -=- Flux a B2 nul -=-                                              "            
+  106 "*                                                                               "            
+  107 "TOPT.'TYPE_B2' = 'NUL'                                               ;          "            
+  108 "TRES TSTR TOPT = CALFLUX_PIJ_CRI_S 1 TSTR TOPT TRES                  ;          "            
+                                     ***********************************************************
+                                     * Execution de la procedure CALFLUX_PIJ_CRI_S version   4 *
+                                     ***********************************************************
+                                             *******************************************
+                                             * Execution de la procedure CALFLUX_PIJ_S *
+                                             *******************************************
+                                             *******************************************
+                                             * EXECUTION DE LA PROCEDURE CALFLUX_PIJ_S *
+                                             *           AVEC UN B2  NUL               *
+                                             *******************************************
+                                              _________________________________________  
+                                              |                                       |  
+                                              |  BILAN:       FLUX DIRECT             |  
+                                              |_______________________________________|  
+                                              |                                       |  
+                                              |  OBJETS:                              |  
+                                              |  GEOMETRIE :  TSTR.GEO                |  
+                                              |  MACROLIB  :  TSTR.MAC                |  
+                                              |  CALINIT   :  TSTR.CALIN              |  
+                                              |  PIJ       :  TSTR.PIJ                |  
+                                              |  CALCUL    :  TSTR.FLX                |  
+                                              |_______________________________________|  
+                                              |    178 RAPIDES ET   103 THERMIQUES    |  
+                                              |  NIV =   1 Nb Region(s) =        1    |  
+                                              |     NG =   281    (     1 -   281)    |  
+                                              |_______________________________________|  
+                                              |                                       |  
+                                              | ITEX                  3               |  
+                                              |                                       |  
+                                              | KEFF                  2.254979610     |  
+                                              | KINF                  2.254980087     |  
+                                              |                                       |  
+                                              | RALENTISSEMENT        0.000047086     |  
+                                              |                                       |  
+                                              | TAUX D'ABSORPTION     2.264329195 s-1 |  
+                                              | TAUX DE FISSION       1.987216592 s-1 |  
+                                              | TAUX DE PRODUCTION    5.085101128 s-1 |  
+                                              | TAUX DE NEXCES        0.009275550 s-1 |  
+                                              | Erreur du bilan       0.000000477     |  
+                                              | VALEUR PROPRE         2.254979134     |  
+                                              |_______________________________________|  
+                                                  ********************************
+                                                  *  En sortie de CALFLUX_PIJ_S  *
+                                                  *  k infini   =   0.225498E+01 *
+                                                  *  k effectif =   0.225498E+01 *
+                                                  *  B2         =   0.000000E+00 *
+                                                  ********************************
+                         --------------------------------
+                         |  En sortie de CALFLUX_PIJ_S  |
+                         |  k infini   =   0.225498E+01 |
+                         |  k effectif =   0.225498E+01 |
+                         |  B2         =   0.000000E+00 |
+                         |------------------------------|
+  109 "*                                                                               "            
+  110 "*            -=- Flux a B2 critique -=-                                         "            
+  111 "*                                                                               "            
+  112 "SI ( TRES.'KINF' GT .8 )                                             ;          "            
+  113 "TOPT.'TYPE_B2' = 'CRITIQUE'                                          ;          "            
+  114 "TRES TSTR TOPT = CALFLUX_PIJ_CRI_S 1 TSTR TOPT TRES                  ;          "            
+                                     ***********************************************************
+                                     * Execution de la procedure CALFLUX_PIJ_CRI_S version   4 *
+                                     ***********************************************************
+                                             *******************************************
+                                             * Execution de la procedure CALFLUX_PIJ_S *
+                                             *******************************************
+                                             *******************************************
+                                             * EXECUTION DE LA PROCEDURE CALFLUX_PIJ_S *
+                                             *           AVEC UN B2  CRITIQUE          *
+                                             *******************************************
+                                              _________________________________________  
+                                              |                                       |  
+                                              |  BILAN:       FLUX DIRECT             |  
+                                              |_______________________________________|  
+                                              |                                       |  
+                                              |  OBJETS:                              |  
+                                              |  GEOMETRIE :  TSTR.GEO                |  
+                                              |  MACROLIB  :  TSTR.MAC                |  
+                                              |  CALINIT   :  TSTR.CALIN              |  
+                                              |  PIJ       :  TSTR.PIJ                |  
+                                              |  CALCUL    :  TSTR.FLX                |  
+                                              |_______________________________________|  
+                                              |    178 RAPIDES ET   103 THERMIQUES    |  
+                                              |  NIV =   1 Nb Region(s) =        1    |  
+                                              |     NG =   281    (     1 -   281)    |  
+                                              |_______________________________________|  
+                                              |                                       |  
+                                              | ITEX                  2               |  
+                                              |                                       |  
+                                              | KEFF                  1.000001669     |  
+                                              | KINF                  2.317920446     |  
+                                              |                                       |  
+                                              | M2                   16.559642792 cm2 |  
+                                              | B2                    0.079586059     |  
+                                              |                                       |  
+                                              | RALENTISSEMENT        0.000026735     |  
+                                              |                                       |  
+                                              | TAUX D'ABSORPTION     0.192311391 s-1 |  
+                                              | TAUX DE FISSION       0.171445325 s-1 |  
+                                              | TAUX DE PRODUCTION    0.443463624 s-1 |  
+                                              | TAUX DE NEXCES        0.000991796 s-1 |  
+                                              | FUITES DB2 (S)        0.252143264 s-1 |  
+                                              | Erreur du bilan       0.000000119     |  
+                                              | VALEUR PROPRE         1.000002861     |  
+                                              |_______________________________________|  
+                                                  ********************************
+                                                  *  En sortie de CALFLUX_PIJ_S  *
+                                                  *  k infini   =   0.231792E+01 *
+                                                  *  k effectif =   0.100000E+01 *
+                                                  *  B2         =   0.795861E-01 *
+                                                  ********************************
+                         --------------------------------
+                         |  En sortie de CALFLUX_PIJ_S  |
+                         |  k infini   =   0.231792E+01 |
+                         |  k effectif =   0.100000E+01 |
+                         |  B2         =   0.795861E-01 |
+                         |------------------------------|
+                                        ****************************************************
+                                        * Execution de la procedure FERMI_L2_S version   3 *
+                                        ****************************************************
+ Description du maillage final
+                                            *********************************************
+                                            * NOMBRE DE GROUPES :                       *
+                                            *  TOTAL                   :       2        *
+                                            *  THERMIQUES              :       2        *
+                                            *  D'ENERGIE DE FISSION    :       1        *
+                                            *  DE RENDEMENT DE FISSION :       1        *
+                                            * LETHARGIE INITIALE       :    0.00000E+00 *
+                                            * ENERGIE INFERIEURE (MeV) :    1.10000E-10 *
+                                            *********************************************
+                                          *************************************************
+                                          * OBTENU PAR CONDENSATION DE TSTR.MAIL          *
+                                          * DU MICROGROUPE       1 AU MICROGROUPE     281 *
+                                          *************************************************
+                                                    ***************************
+                                                    * DESCRIPTION DU MAILLAGE *
+                                                    ***************************
+                                  ----------------------------------------------------------------
+                                  | GROUPE |   PREMIER   |   ENERGIE   | LARGEUR EN  | MEF | MRF |
+                                  |        | MICROGROUPE | SUPERIEURE  |  LETHARGIE  |     |     |
+                                  |        |             |   en MeV    |             |     |     |
+                                  ----------------------------------------------------------------
+                                  |    1   |       1     | 1.96403E+01 | 1.51971E+01 |  1  |  1  |
+                                  |    2   |     192     | 4.93324E-06 | 1.07110E+01 |  1  |  1  |
+                                  ----------------------------------------------------------------
+  MEF : MACROGROUPE D'ENERGIE DE FISSION
+  MRF : MACROGROUPE DE RENDEMENT DE FISSION
+                                       *******************************************************
+                                       * Execution de la procedure HOMOGE_COND_S version   9 *
+                                       *******************************************************
+                                      ********************************************************
+                                      * Execution de la procedure MACRO_GLOBALE_S version  5 *
+                                      ********************************************************
+                                        *****************************************************
+                                        * Execution de la procedure CALCUL_SN_S version   6 *
+                                        *****************************************************
+               -----------------------------------------------------
+               | Execution de la procedure CALCUL_SN_S version   6 |
+               |---------------------------------------------------|
+                                                     **************************
+                                                     * RESULTATS DU CALCUL SN *
+                                                     * KEFF =  0.996844E+00   *
+                                                     **************************
+                            --------------------------
+                            | RESULTATS DU CALCUL SN |
+                            | KEFF =  0.996844E+00   |
+                            |------------------------|
+ Destruction de l objet TSTR                 de type TABLE
+ Destruction de l objet TOPT                 de type TABLE
+ Destruction de l objet TRES                 de type TABLE
+ Destruction de l objet nom_calc             de type CHAINE
+ Destruction de l objet nom_mil              de type CHAINE
+                                                    ***************************
+                                                    *     TEMPS DE CALCUL     *
+                                                    * (TEMPS CP :     1.65 S) *
+                                                    *  DE 12:26:08 A 12:26:10 *
+                                                    ***************************
+                                --------------------------------------------------------------------
+                                |       NOM DU       |  NOMBRE  |       | TEMPS MOYEN |    TEMPS   |
+                                |       MODULE       | D'APPELS |   %   |  PAR APPEL  | PAR MODULE |
+                                |                    |          |       |    (SEC)    |    (SEC)   |
+                                --------------------------------------------------------------------
+                                | OPTION:            |      55  |    .1 |             |       .001 |
+                                | A_READ:            |     744  |   6.3 |             |       .105 |
+                                | PRINT:             |       1  |       |             |            |
+                                | A_CLOSE:           |       5  |       |             |            |
+                                | A_OPEN:            |       5  |    .4 |       .001  |       .006 |
+                                | VECTOR:            |       1  |       |             |            |
+                                | DELETE:            |      12  |   1.2 |       .002  |       .02  |
+                                | GET_ENV_VAR:       |       8  |       |             |            |
+                                | OPTION_RECOV:      |       8  |    .1 |             |       .001 |
+                                | VERSION:           |       1  |       |             |            |
+                                | SUBSTR:            |     443  |   1.4 |             |       .024 |
+                                | STRLEN:            |      24  |       |             |            |
+                                | STR_INDEX:         |     425  |   1.2 |             |       .019 |
+                                | Isotope:           |     441  |   5.3 |             |       .088 |
+                                | Medium:            |       3  |       |             |       .001 |
+                                | EnergyMesh:        |       4  |    .1 |             |       .002 |
+                                | XsLibrary:         |       1  |    .1 |       .001  |       .001 |
+                                | InternalXsLibrary: |       1  |   6.7 |       .11   |       .11  |
+                                | InfMediumLeakage:  |       2  |    .4 |       .003  |       .006 |
+                                | FluxNorm:          |       1  |       |             |            |
+                                | InitialFlux:       |       2  |       |             |       .001 |
+                                | CpmFluxIter:       |       5  |    .2 |       .001  |       .003 |
+                                | CpmFluxAcce:       |       5  |       |             |       .001 |
+                                | CpmFluxConv:       |       5  |       |             |       .001 |
+                                | FluxPrintout:      |       4  |    .1 |             |       .002 |
+                                | FluxWeightMacroXs: |       4  |    .1 |             |       .002 |
+                                | Geometry:          |       2  |       |             |            |
+                                | MacroXsLibrary:    |       5  |    .1 |             |       .002 |
+                                | SnFluxInit:        |       1  |       |             |            |
+                                | SnFluxIterator:    |       1  |   1.  |       .016  |       .016 |
+                                | CollisionProb:     |       2  |    .1 |       .001  |       .001 |
+                                | FluxSolverInit:    |       3  |       |             |       .001 |
+                                | SelfShielding:     |      21  |   4.6 |       .004  |       .076 |
+                                | Extract:           |     216  |   3.5 |             |       .058 |
+                                | GatherMacroXs:     |       1  |       |             |            |
+                                | CondenseDB2:       |       1  |       |             |            |
+                                | Apollo2Options:    |       1  |       |             |            |
+                                | SnQuadrature:      |       1  |       |             |            |
+                                | EQUIGEOM:          |       2  |       |             |            |
+                                | RemResonanceData:  |       6  |    .2 |       .001  |       .004 |
+                                | ResMixProbTables2: |       6  |   4.6 |       .013  |       .076 |
+                                | ReadProbTables:    |       6  |   4.3 |       .012  |       .072 |
+                                | ResMixProbTabAux:  |       6  |       |             |       .001 |
+                                | ResMixProbTabObj:  |       6  |    .7 |       .002  |       .011 |
+                                | (AUTRES)           |  122956  |  56.9 |             |       .941 |
+                                | code GIBIANE       |       1  |  45.8 |       .757  |       .757 |
+                                | code ACROPOLE      |       1  |  21.9 |       .361  |       .361 |
+                                | code APOLLO        |       2  |  32.3 |       .267  |       .535 |
+                                --------------------------------------------------------------------
+ ==>  FIN NORMALE DU PROGRAMME : BRAVO !!!
+  FIN NORMALE DU PROGRAMME : BRAVO !!!                                          
+                                                                                
+                                                                                
+                   
+--------------------------------------------------------------------------------
+----------------------  FICHIER RESUME DU CALCUL APOLLO ------------------------
+--------------------------------------------------------------------------------
+101.AOU.2019                          Sn KEFF 1D                          PAGE   1
+   
+                         --------------------------------
+                         | Umetal X:U C(X)=18742  H/X=0 |
+                         |------------------------------|
+   
+                                  ---------------
+                                  | U=235.19021 |
+                                  |-------------|
+   
+                      Resultats du calcul PIJ a B2 critique :  
+                     ----------------------------------------- 
+   
+                     _________________________________________  
+                     |                                       |  
+                     |  BILAN:       FLUX DIRECT             |  
+                     |_______________________________________|  
+                     |                                       |  
+                     |  OBJETS:                              |  
+                     |  GEOMETRIE :  TSTR.REFLEC0.GEO        |  
+                     |  MACROLIB  :  TSTR.REFLEC0.MAC        |  
+                     |  CALINIT   :  TSTR.REFLEC0.CALIN      |  
+                     |  PIJ       :  TSTR.REFLEC0.PIJ        |  
+                     |  CALCUL    :  TSTR.REFLEC0.FLX        |  
+                     |_______________________________________|  
+                     |    178 RAPIDES ET   103 THERMIQUES    |  
+                     |  NIV =   1 Nb Region(s) =        1    |  
+                     |     NG =   281    (     1 -   281)    |  
+                     |_______________________________________|  
+                     |                                       |  
+                     | ITEX                  2               |  
+                     |                                       |  
+                     | KEFF                  1.000001669     |  
+                     | KINF                  2.317920446     |  
+                     |                                       |  
+                     | M2                   16.559642792 cm2 |  
+                     | B2                    0.079586059     |  
+                     |                                       |  
+                     | RALENTISSEMENT        0.000026735     |  
+                     |                                       |  
+                     | TAUX D'ABSORPTION     0.192311391 s-1 |  
+                     | TAUX DE FISSION       0.171445325 s-1 |  
+                     | TAUX DE PRODUCTION    0.443463624 s-1 |  
+                     | TAUX DE NEXCES        0.000991796 s-1 |  
+                     | FUITES DB2 (S)        0.252143264 s-1 |  
+                     | Erreur du bilan       0.000000119     |  
+                     | VALEUR PROPRE         1.000002861     |  
+                     |_______________________________________|  
+   
+                         --------------------------------
+                         | M2            = 16.55964 cm2 |
+                         | L2            =  0.00209 cm2 |
+                         | Age de Fermi  = 16.55755 cm2 |
+                         |------------------------------|
+   
+                             Resultats du calcul Sn :  
+                            -------------------------- 
+   
+                     _________________________________________  
+                     |                                       |  
+                     |  BILAN:       FLUX DIRECT             |  
+                     |_______________________________________|  
+                     |                                       |  
+                     |  OBJETS:                              |  
+                     |  GEOMETRIE :  TSTR.GEO_SN             |  
+                     |  MACROLIB  :  TSTR.MAC_SN             |  
+                     |  CALINIT   :  TSTR.CALIN_SN           |  
+                     |  COEFFSN   :  TSTR.COEF_SN            |  
+                     |  CALCUL    :  TSTR.FLX_SN_N           |  
+                     |_______________________________________|  
+                     |     11 RAPIDES ET     9 THERMIQUES    |  
+                     |  NIV =   1 Nb Region(s) =        9    |  
+                     |     NG =    20    (     1 -    20)    |  
+                     |_______________________________________|  
+                     |                                       |  
+                     | ITEX                  9               |  
+                     |                                       |  
+                     | KEFF                  0.996843517     |  
+                     | KINF                  2.331811666     |  
+                     |                                       |  
+                     | RALENTISSEMENT        0.000027747     |  
+                     |                                       |  
+                     | TAUX D'ABSORPTION     0.429887891 s-1 |  
+                     | TAUX DE FISSION       0.384513825 s-1 |  
+                     | TAUX DE PRODUCTION    0.996843696 s-1 |  
+                     | TAUX DE NEXCES        0.002390396 s-1 |  
+                     | FUITES SPATIALES      0.572496831 s-1 |  
+                     | Erreur du bilan       0.000005841     |  
+                     |                                       |  
+                     | NORMALISATION         0.000001728     |  
+                     | VALEUR PROPRE         0.996849656     |  
+                     |_______________________________________|  

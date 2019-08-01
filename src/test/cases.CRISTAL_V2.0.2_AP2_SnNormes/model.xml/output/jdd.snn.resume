@@ -1,0 +1,85 @@
+101.AOU.2019                          Sn NORMES                           PAGE   1
+   
+                        ----------------------------------
+                        | UO2 X:U C(X)=4847.92464  H/X=1 |
+                        |--------------------------------|
+   
+                                  ---------------
+                                  | U=237.89861 |
+                                  |-------------|
+   
+                      Resultats du calcul PIJ a B2 critique :  
+                     ----------------------------------------- 
+   
+                     _________________________________________  
+                     |                                       |  
+                     |  BILAN:       FLUX DIRECT             |  
+                     |_______________________________________|  
+                     |                                       |  
+                     |  OBJETS:                              |  
+                     |  GEOMETRIE :  TSTR.FISSILE_0.GEO      |  
+                     |  MACROLIB  :  TSTR.FISSILE_0.MAC      |  
+                     |  CALINIT   :  TSTR.FISSILE_0.CALIN    |  
+                     |  PIJ       :  TSTR.FISSILE_0.PIJ      |  
+                     |  CALCUL    :  TSTR.FISSILE_0.FLX      |  
+                     |_______________________________________|  
+                     |    146 RAPIDES ET   135 THERMIQUES    |  
+                     |  NIV =   1 Nb Region(s) =        1    |  
+                     |     NG =   281    (     1 -   281)    |  
+                     |_______________________________________|  
+                     |                                       |  
+                     | ITEX                  4               |  
+                     |                                       |  
+                     | KEFF                  1.000000000     |  
+                     | KINF                  1.128979683     |  
+                     |                                       |  
+                     | M2                   87.671081543 cm2 |  
+                     | B2                    0.001471177     |  
+                     |                                       |  
+                     | RALENTISSEMENT        0.305034518     |  
+                     |                                       |  
+                     | TAUX D'ABSORPTION     0.786787629 s-1 |  
+                     | TAUX DE FISSION       0.355637819 s-1 |  
+                     | TAUX DE PRODUCTION    0.885948479 s-1 |  
+                     | TAUX DE NEXCES        0.002053859 s-1 |  
+                     | FUITES DB2 (S)        0.101214893 s-1 |  
+                     | Erreur du bilan      -0.000000179     |  
+                     | VALEUR PROPRE         1.000000000     |  
+                     |_______________________________________|  
+   
+                         --------------------------------
+                         | M2            = 87.67108 cm2 |
+                         | L2            =  9.56652 cm2 |
+                         | Age de Fermi  = 78.10456 cm2 |
+                         |------------------------------|
+   
+                                    -----------
+                                    | REFLEC1 |
+                                    |---------|
+   
+                             Resultats du calcul Sn :  
+                            -------------------------- 
+   
+                       Type de la geometrie Sn :  SPHERIQUE  
+   
+                                Nombre de zones   2  
+   
+                            Zone 1    :   FISSILE_0     
+                            Type      :   UO2           
+                            C(X)      :   0.484792E+04  
+                            Dimension :   variable      
+   
+                            Zone 2    :   REFLEC1       
+                            Type      :   WATER         
+                            C(X)      :   0.997992E+03  
+                            Dimension :   71.47         
+   
+                         Type du reflecteur :  WATER(20.0)  
+   
+                    Convergence sur un Keff de :  0.950000E+00  
+   
+              -------------------------------------------------------
+              | LE RAYON RECHERCHE VAUT (en cm.)  0.514719E+02      |
+              | ECART AU KEFF CIBLE (en pcm)           -.996464E+01 |
+              | PENTE EN REACTIVITE (en pcm/cm.)       0.505021E+03 |
+              |-----------------------------------------------------|

@@ -1,0 +1,22 @@
+#snn
+#Thu Aug 01 11:42:18 CEST 2019
+C(U\ )=4847.92464
+H/U\ =1
+KEFF\ (FISSILE_0)\ a\ B2\ critique=1.000000000
+KINF\ (FISSILE_0)\ a\ B2\ critique=1.128979683
+M2\ (FISSILE_0)\ a\ B2\ critique=87.671081543 cm2
+B2\ (FISSILE_0)\ a\ B2\ critique=0.001471177
+RALENTISSEMENT\ (FISSILE_0)\ a\ B2\ critique=0.305034518
+TAUX\ D'ABSORPTION\ (FISSILE_0)\ a\ B2\ critique=0.786787629 s-1
+TAUX\ DE\ FISSION\ (FISSILE_0)\ a\ B2\ critique=0.355637819 s-1
+TAUX\ DE\ PRODUCTION\ (FISSILE_0)\ a\ B2\ critique=0.885948479 s-1
+TAUX\ DE\ NEXCES\ (FISSILE_0)\ a\ B2\ critique=0.002053859 s-1
+FUITES\ DB2\ (S)\ (FISSILE_0)\ a\ B2\ critique=0.101214893 s-1
+Erreur\ du\ bilan\ (FISSILE_0)\ a\ B2\ critique=-0.000000179
+VALEUR\ PROPRE\ (FISSILE_0)\ a\ B2\ critique=1.000000000
+Type\ de\ la\ geometrie\ Sn=\   SPHERIQUE
+Type\ du\ reflecteur=\   WATER(20.0)
+Convergence\ sur\ un\ Keff\ de=\   0.950000E+00
+Dimension\ (en\ cm.)=\  0.514719E+02      
+ECART\ AU\ KEFF\ CIBLE\ (en\ pcm)=-.996464E+01
+PENTE\ EN\ REACTIVITE\ (en\ pcm/cm.)=0.505021E+03

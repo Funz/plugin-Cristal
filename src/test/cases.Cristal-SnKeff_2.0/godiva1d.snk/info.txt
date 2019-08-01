@@ -1,0 +1,15 @@
+#Thu Aug 01 12:26:12 CEST 2019
+output.M2=16.559642792
+state=running
+output.slowing_down=2.7747E-5
+start=12\:26\:08
+code=Cristal-SnKeff_2.0
+info=Results parsed\: {B2\=0.079586059, kinf\=2.331811666, M2\=16.559642792, slowing_down\=2.7747E-5, keff\=0.996843517}
+output={B2\=0.079586059,kinf\=2.331811666,M2\=16.559642792,slowing_down\=2.7747E-5,keff\=0.996843517}
+output.keff=0.996843517
+input.No\ name=No value
+output.kinf=2.331811666
+duration=0
+end=
+calc=localhost\:43159
+output.B2=0.079586059

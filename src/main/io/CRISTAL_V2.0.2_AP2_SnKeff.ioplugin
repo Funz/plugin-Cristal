@@ -1,0 +1,34 @@
+information=Cristal v2.0 (French criticality package) plugin made by IRSN/Yann Richet\nLesser General Public License
+
+variableStartSymbol=$
+variableLimit=(...)
+formulaStartSymbol=@
+formulaLimit={...}
+commentLineChar=#
+
+roundOff=10
+
+datasetFilter=contains("(.*)","<prj ") & contains("(.*)","CRISTAL_V2.0_AP2_SnKeff")
+
+outputlist=keff kinf slowing_down M2 B2
+outputfunctions=Numeric:keff
+
+output.keff.if=true
+output.keff.get=grep("(.*)listing"," KEFF                ") >> get(0) >> between("| KEFF","|") >> asNumeric()
+output.keff.default=1.0
+
+output.kinf.if=true
+output.kinf.get=grep("(.*)listing"," KINF                ") >> get(0) >> between("| KINF","|") >> asNumeric()
+output.kinf.default=1.0
+
+output.slowing_down.if=true
+output.slowing_down.get=grep("(.*)listing"," RALENTISSEMENT      ") >> get(0) >> between("| RALENTISSEMENT","|  ") >> asNumeric()
+output.slowing_down.default=0.5
+
+output.M2.if=true
+output.M2.get=grep("(.*)listing"," M2                 ") >> get(0) >> between("| M2","cm2 |") >> asNumeric()
+output.M2.default=40
+
+output.B2.if=true
+output.B2.get=grep("(.*)listing"," B2                 ") >> get(0) >> between("| B2","|") >> asNumeric()
+output.B2.default=0.01

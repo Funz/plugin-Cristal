@@ -10,34 +10,37 @@ roundOff=10
 
 datasetFilter=contains("(.*)","<prj ") & contains("(.*)","CRISTAL_V2.0_AP2_SnKeff")
 
-outputlist=dimension ekeff dkeff_ddimension cx hx M2 B2
-outputfunctions=NumericArray:dimension NumericArray:cx NumericArray:hx
+outputlist=dimension ekeff dkeff_ddimension cx hx M2 B2 kinf
+outputfunctions=Numeric:dimension Numeric:cx Numeric:hx
 
 output.cx.if=true
-output.cx.get=grep("(.*)resume","H/") >> between(")="," ") >> asNumeric1DArray()
+output.cx.get=grep("(.*)resume","H/") >> get(0) >> between(")="," ") >> asNumeric()
 output.cx.default=runif(10)
 
 output.hx.if=true
-output.hx.get=grep("(.*)resume","H/") >> between("H/"," ") >> after("=") >> asNumeric1DArray()
+output.hx.get=grep("(.*)resume","H/") >> get(0) >> between("H/"," ") >> after("=")  >> asNumeric()
 output.hx.default=runif(10)
 
 output.dimension.if=true
-output.dimension.get=grep("(.*)resume","(( ABANDONNEE )|( VAUT ))") >> between(")  ","|") >> asNumeric1DArray()
+output.dimension.get=grep("(.*)resume","(( ABANDONNEE )|( VAUT ))") >> get(0) >> between(")  ","|") >> asNumeric()
 output.dimension.default=runif(10)
 
 output.ekeff.if=true
-output.ekeff.get=grep("(.*)resume","(( ABANDONNEE )|(ECART AU KEFF CIBLE))") >> between(")  ","|") >> asNumeric1DArray()
+output.ekeff.get=grep("(.*)resume","(( ABANDONNEE )|(ECART AU KEFF CIBLE))") >> get(0) >> between(")  ","|") >> asNumeric()
 output.ekeff.default=runif(10)
 
 output.dkeff_ddimension.if=true
-output.dkeff_ddimension.get=grep("(.*)resume","(( ABANDONNEE )|(PENTE EN REACTIVITE))") >> between(")  ","|") >> asNumeric1DArray()
+output.dkeff_ddimension.get=grep("(.*)resume","(( ABANDONNEE )|(PENTE EN REACTIVITE))") >> get(0) >> between(")  ","|") >> asNumeric()
 output.dkeff_ddimension.default=runif(10)
 
 output.M2.if=true
-output.M2.get=grep("(.*)resume"," M2                 ") >> between("| M2","cm2 |") >> asNumeric1DArray()
+output.M2.get=grep("(.*)resume"," M2                 ") >> get(0) >> between("| M2","cm2 |") >> asNumeric()
 output.M2.default=runif(10)
 
 output.B2.if=true
-output.B2.get=grep("(.*)resume"," B2                 ") >> between("| B2","|") >> asNumeric1DArray()
+output.B2.get=grep("(.*)resume"," B2                 ") >> get(0) >> between("| B2","|") >> asNumeric()
 output.B2.default=runif(10)
 
+output.kinf=true
+output.kinf.get=grep("(.*)resume"," KINF                ") >> get(0) >> between("| KINF","|") >> asNumeric()
+output.kinf.default= runif(1)

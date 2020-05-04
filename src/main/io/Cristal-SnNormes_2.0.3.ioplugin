@@ -1,0 +1,43 @@
+information=Cristal (French criticality package) plugin made by IRSN/Yann Richet\nLesser General Public License
+
+variableStartSymbol=$
+variableLimit=(...)
+formulaStartSymbol=@
+formulaLimit={...}
+
+commentLineChar=*
+
+roundOff=10
+
+datasetFilter=contains("(.*)","DEBUT_APOLLO") && contains("(.*)","LATEC") && contains("(.*)","RECHERCHE_DIM_S") && contains("(.*)","LATEC") && contains("(.*)","NORME")
+
+outputlist=dimension ekeff dkeff_ddimension cx hx M2 B2
+outputfunctions=NumericArray:dimension NumericArray:cx NumericArray:hx
+
+output.cx.if=true
+output.cx.get=grep("(.*)resume","H/") >> between(")="," ") >> asNumeric1DArray()
+output.cx.default=runif(10)
+
+output.hx.if=true
+output.hx.get=grep("(.*)resume","H/") >> between("H/"," ") >> after("=") >> asNumeric1DArray()
+output.hx.default=runif(10)
+
+output.dimension.if=true
+output.dimension.get=grep("(.*)resume","(( ABANDONNEE )|( VAUT ))") >> between(")  ","|") >> asNumeric1DArray()
+output.dimension.default=runif(10)
+
+output.ekeff.if=true
+output.ekeff.get=grep("(.*)resume","(( ABANDONNEE )|(ECART AU KEFF CIBLE))") >> between(")  ","|") >> asNumeric1DArray()
+output.ekeff.default=runif(10)
+
+output.dkeff_ddimension.if=true
+output.dkeff_ddimension.get=grep("(.*)resume","(( ABANDONNEE )|(PENTE EN REACTIVITE))") >> between(")  ","|") >> asNumeric1DArray()
+output.dkeff_ddimension.default=runif(10)
+
+output.M2.if=true
+output.M2.get=grep("(.*)resume"," M2                 ") >> between("| M2","cm2 |") >> asNumeric1DArray()
+output.M2.default=runif(10)
+
+output.B2.if=true
+output.B2.get=grep("(.*)resume"," B2                 ") >> between("| B2","|") >> asNumeric1DArray()
+output.B2.default=runif(10)

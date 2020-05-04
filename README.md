@@ -6,7 +6,7 @@ This plugin is dedicated to launch Cristal (V1 and V2, raw or xml available at h
 It supports the following syntax and features:
 
   * Input
-    * file type supported: *.R, any other format for resources
+    * file type supported: *.d, *.m5, *.mor, model.xml, any other format for resources
     * parameter syntax: 
       * variable syntax: `$(...)`
       * formula syntax: `@{...}`

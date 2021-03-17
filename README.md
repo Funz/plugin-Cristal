@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Funz/plugin-Cristal.png)](https://travis-ci.org/Funz/plugin-Cristal)
+[![.github/workflows/ant.yml](https://github.com/Funz/plugin-Cristal/actions/workflows/ant.yml/badge.svg)](https://github.com/Funz/plugin-Cristal/actions/workflows/ant.yml)
 
 # Funz plugin: Cristal
 
